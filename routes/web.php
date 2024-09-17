@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SdgController;
@@ -34,7 +35,8 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Auth::routes(['register' => false]);
+
+Auth::routes(['register' => true]);
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -198,6 +200,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/company-outcome/{companyOutcome}/edit', [CompanyOutcomeController::class, 'edit'])->name('company-outcome.edit');
     Route::put('/company-outcome/{companyOutcome}', [CompanyOutcomeController::class, 'update'])->name('company-outcome.update');
     Route::delete('/company-outcome/{companyOutcome}', [CompanyOutcomeController::class, 'destroy'])->name('company-outcome.destroy');
+
+
+    Route::get('/investors', [InvestorController::class, 'index'])->name('investors.index');
+    Route::get('/investors/create', [InvestorController::class, 'create'])->name('investors.create');
+    Route::post('/investors/store', [InvestorController::class, 'store'])->name('investors.store');
+    Route::get('/investors/{id}/edit', [InvestorController::class, 'edit'])->name('investors.edit');
+    Route::put('/investors/{id}', [InvestorController::class, 'update'])->name('investors.update');
+    Route::delete('/investors/{id}', [InvestorController::class, 'destroy'])->name('investors.destroy');
+    Route::get('/investors/{investor}/show', [InvestorController::class, 'show'])->name('investors.view');
+
+
 
 
 });
