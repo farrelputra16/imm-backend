@@ -10,6 +10,7 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // Menambahkan kolom name untuk menyimpan nama
             $table->enum('role', ['mentor', 'pekerja', 'konsultan']);
             $table->string('primary_job_title');
             $table->string('primary_organization');

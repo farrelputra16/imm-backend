@@ -10,6 +10,7 @@ class People extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'role',
         'primary_job_title',
         'primary_organization',

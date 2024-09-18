@@ -28,12 +28,15 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Create New People</h1>
 
-    <!-- Form for creating a new people -->
+    <!-- Form for creating new people -->
     <div class="card shadow mb-4">
         <div class="card-body">
             <form action="{{ route('people.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+
                     <label for="role">Role:</label>
                     <select class="form-control" id="role" name="role" required>
                         <option value="mentor">Mentor</option>

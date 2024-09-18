@@ -7,6 +7,11 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $people->name }}" readonly>
+            </div>
+
+            <div class="form-group">
                 <label for="role">Role:</label>
                 <input type="text" class="form-control" id="role" name="role" value="{{ ucfirst($people->role) }}" readonly>
             </div>

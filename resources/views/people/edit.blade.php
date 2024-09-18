@@ -10,6 +10,9 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $people->name }}" required>
+
                     <label for="role">Role:</label>
                     <select class="form-control" id="role" name="role" required>
                         <option value="mentor" @if($people->role === 'mentor') selected @endif>Mentor</option>

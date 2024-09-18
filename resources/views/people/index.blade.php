@@ -10,6 +10,7 @@
             <table id="people-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>Name</th>
                         <th>Role</th>
                         <th>Primary Job Title</th>
                         <th>Primary Organization</th>
@@ -24,6 +25,7 @@
                 <tbody>
                     @foreach ($people as $person)
                         <tr>
+                            <td>{{ $person->name }}</td>
                             <td>{{ ucfirst($person->role) }}</td>
                             <td>{{ $person->primary_job_title }}</td>
                             <td>{{ $person->primary_organization }}</td>
