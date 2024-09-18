@@ -145,6 +145,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Companies -->
+            <li class="nav-item {{ Nav::isRoute('hubs') }}">
+                <a class="nav-link" href="{{ route('hubs.index') }}">
+                    <i class="fas fa-fw fa-building"></i>
+                    <span>{{ __('Hubs') }}</span>
+                </a>
+            </li>
+
             <!-- Nav Item - Surveys -->
             <li class="nav-item {{ Nav::isRoute('surveys') }}">
                 <a class="nav-link" href="{{ route('surveys.index') }}">

@@ -18,6 +18,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\CompanyOutcomeController;
 use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\HubsController;
 
 
 
@@ -218,6 +219,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/people/{id}', [PeopleController::class, 'update'])->name('people.update');
     Route::delete('/people/{id}', [PeopleController::class, 'destroy'])->name('people.destroy');
     Route::get('/people/{people}/show', [PeopleController::class, 'show'])->name('people.view');
+
+    Route::get('/hubs', [HubsController::class, 'index'])->name('hubs.index');
+    Route::get('/hubs/create', [HubsController::class, 'create'])->name('hubs.create');
+    Route::post('/hubs/store', [HubsController::class, 'store'])->name('hubs.store');
+    Route::get('/hubs/{hub}/edit', [HubsController::class, 'edit'])->name('hubs.edit');
+    Route::put('/hubs/{hub}', [HubsController::class, 'update'])->name('hubs.update');
+    Route::delete('/hubs/{hub}', [HubsController::class, 'destroy'])->name('hubs.destroy');
+    Route::get('/hubs/{hub}/show', [HubsController::class, 'show'])->name('hubs.show');
 
 
 });
