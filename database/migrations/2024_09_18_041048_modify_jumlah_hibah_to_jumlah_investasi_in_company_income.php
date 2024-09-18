@@ -14,7 +14,8 @@ class ModifyJumlahHibahToJumlahInvestasiInCompanyIncome extends Migration
     public function up()
     {
         Schema::table('company_income', function (Blueprint $table) {
-            //
+            // ubah nama kolum yang tadinya jumlah hibah menjadi jumlah investasi
+            $table->renameColumn('jumlah_hibah', 'jumlah');
         });
     }
 
@@ -26,7 +27,8 @@ class ModifyJumlahHibahToJumlahInvestasiInCompanyIncome extends Migration
     public function down()
     {
         Schema::table('company_income', function (Blueprint $table) {
-            //
+            // kembalikan nama kolum yang tadinya jumlah investasi menjadi jumlah hibah
+            $table->renameColumn('jumlah', 'jumlah_hibah');
         });
     }
 }
