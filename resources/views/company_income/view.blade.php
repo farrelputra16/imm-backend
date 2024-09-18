@@ -12,7 +12,13 @@
             <p><strong>Bank Tujuan:</strong> {{ $income->bank_tujuan }}</p>
             <p><strong>Jumlah:</strong> {{ $income->jumlah }}</p>
             <p><strong>Funding Type:</strong> {{ $income->funding_type }}</p>
-            <p><strong>Tipe Investasi:</strong> {{ $income->tipe_investasi }}</p>
+            <p><strong>Tipe Investasi:</strong> 
+                @if ($income->tipe_investasi)
+                    $income->tipe_investasi
+                @else
+                    Tidak ada tipe investasi
+                @endif
+            </p>
         </div>
     </div>
     <a href="{{ route('company-income.index', ['company_id' => $income->company_id]) }}" class="btn btn-primary mt-3">Back</a>

@@ -34,7 +34,14 @@
                             <td>{{ $income->bank_tujuan }}</td>
                             <td>{{ $income->jumlah }}</td>
                             <td>{{ $income->funding_type }}</td>
-                            <td>{{ $income->tipe_investasi }}</td>
+                            <td>
+                                @if ($income->tipe_investasi)
+                                    {{-- Display investment type --}}   
+                                    {{ $income->tipe_investasi }}
+                                @else
+                                    Tidak ada tipe investasi
+                                @endif          
+                            </td>
                             <td>
                                 {{-- View button --}}
                                 <a href="{{ route('company-income.show', $income->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
