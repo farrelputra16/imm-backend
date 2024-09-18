@@ -17,6 +17,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\CompanyOutcomeController;
+use App\Http\Controllers\PeopleController;
 
 
 
@@ -210,7 +211,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/investors/{id}', [InvestorController::class, 'destroy'])->name('investors.destroy');
     Route::get('/investors/{investor}/show', [InvestorController::class, 'show'])->name('investors.view');
 
-
+    Route::get('/people', [PeopleController::class, 'index'])->name('people.index');
+    Route::get('/people/create', [PeopleController::class, 'create'])->name('people.create');
+    Route::post('/people/store', [PeopleController::class, 'store'])->name('people.store');
+    Route::get('/people/{id}/edit', [PeopleController::class, 'edit'])->name('people.edit');
+    Route::put('/people/{id}', [PeopleController::class, 'update'])->name('people.update');
+    Route::delete('/people/{id}', [PeopleController::class, 'destroy'])->name('people.destroy');
+    Route::get('/people/{people}/show', [PeopleController::class, 'show'])->name('people.view');
 
 
 });
