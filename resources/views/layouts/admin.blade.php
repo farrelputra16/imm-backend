@@ -137,6 +137,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Companies -->
+            <li class="nav-item {{ Nav::isRoute('people') }}">
+                <a class="nav-link" href="{{ route('people.index') }}">
+                    <i class="fas fa-fw fa-building"></i>
+                    <span>{{ __('People') }}</span>
+                </a>
+            </li>
+
             <!-- Nav Item - Surveys -->
             <li class="nav-item {{ Nav::isRoute('surveys') }}">
                 <a class="nav-link" href="{{ route('surveys.index') }}">
