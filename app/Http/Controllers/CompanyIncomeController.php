@@ -22,6 +22,7 @@ class CompanyIncomeController extends Controller
         if ($request->has('company_id')) {
             $selectedCompany = Company::findOrFail($request->company_id);
             $companyIncomes = $selectedCompany->incomes;
+            dd($companyIncomes);
         }
 
         return view('company_income.index', compact('selectedCompany', 'companyIncomes'));
