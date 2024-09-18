@@ -12,6 +12,7 @@
                     <tr>
                         <th>Nama</th>
                         <th>Profile</th>
+                        <th>Tanggal Didirikan</th>
                         <th>Tipe</th>
                         <th>Nama PIC</th>
                         <th>Posisi PIC</th>
@@ -20,6 +21,7 @@
                         <th>Provinsi</th>
                         <th>Kabupaten</th>
                         <th>Jumlah Karyawan</th>
+                        <th>Startup Summary</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -41,6 +43,7 @@
                         <tr>
                             <td>{{ $company->nama }}</td>
                             <td>{{ $shortened_text }}</td>
+                            <td>{{ $company->founded_date }}</td>
                             <td>{{ $company->tipe }}</td>
                             <td>{{ $company->nama_pic }}</td>
                             <td>{{ $company->posisi_pic }}</td>
@@ -49,6 +52,7 @@
                             <td>{{ $company->provinsi }}</td>
                             <td>{{ $company->kabupaten }}</td>
                             <td>{{ $company->jumlah_karyawan }}</td>
+                            <td>{{ $company->startup_summary }}</td>
                             <td style="width:100%;">
                                 <a href="{{ route('companies.view', $company->id) }}" class="btn btn-sm btn-primary"><i
                                         class="fas fa-info-circle" style="color: #ffffff;"></i></a>

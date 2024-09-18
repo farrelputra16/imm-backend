@@ -15,6 +15,11 @@
                 <label for="profile">Profile:</label>
                 <input type="text" class="form-control" id="profile" name="profile" value="{{ $company->profile }}" readonly>
             </div>
+
+            <div class="form-group">
+                <label for="founded-date">Tanggal didirikan</label>
+                <input type="text" class="form-control" id="founded-date" name="founded-date" value="{{ $company->founded_date ? \Carbon\Carbon::parse($company->founded_date)->format('j F, Y') : 'N/A' }}" readonly>
+            </div>
             
             <div class="form-group">
                 <label for="tipe">Tipe:</label>
@@ -55,6 +60,12 @@
                 <label for="jumlah_karyawan">Jumlah Karyawan:</label>
                 <input type="text" class="form-control" id="jumlah_karyawan" name="jumlah_karyawan" value="{{ $company->jumlah_karyawan }}" readonly>
             </div>
+            
+            <div class="form-group">
+                <label for="startup_summary">Startup Summary:</label>
+                <textarea class="form-control" id="startup_summary" name="startup_summary" rows="3" readonly>{{ $company->startup_summary }}</textarea>
+            </div>
+
             <div class="form-group">
                 <label for="user_id">User:</label>
                 <input type="text" class="form-control" id="user_id" name="user_id" value="{{ $company->user->nama_depan }} {{ $company->user->nama_belakang }}" readonly>

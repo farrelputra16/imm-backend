@@ -43,6 +43,7 @@ class CompanyController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'profile' => 'required',
+            'founded_date' => 'required',
             'tipe' => 'required',
             'nama_pic' => 'required',
             'posisi_pic' => 'required',
@@ -51,6 +52,7 @@ class CompanyController extends Controller
             'provinsi' => 'required',
             'kabupaten' => 'required',
             'jumlah_karyawan' => 'required',
+            'startup_summary' => 'required',
             'user_id' => 'required|exists:users,id|not_in:'.implode(',', Company::pluck('user_id')->toArray()),
         ], [
             'user_id.not_in' => 'The selected user already has a company.'
@@ -101,6 +103,7 @@ class CompanyController extends Controller
         $request->validate([
             'nama' => 'required',
             'profile' => 'required',
+            'founded_date' => 'required',
             'tipe' => 'required',
             'nama_pic' => 'required',
             'posisi_pic' => 'required',
@@ -109,6 +112,7 @@ class CompanyController extends Controller
             'provinsi' => 'required',
             'kabupaten' => 'required',
             'jumlah_karyawan' => 'required',
+            'startup_summary' => 'required',
         ]);
 
         $company = Company::findOrFail($id);
