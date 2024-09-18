@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyJumlahHibahToJumlahInvestasiInCompanyIncome extends Migration
+class ModifyJumlahHibahToJumlah extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class ModifyJumlahHibahToJumlahInvestasiInCompanyIncome extends Migration
     public function up()
     {
         Schema::table('company_income', function (Blueprint $table) {
-            // ubah nama kolum yang tadinya jumlah hibah menjadi jumlah investasi
-            $table->renameColumn('jumlah_hibah', 'jumlah');
+             // ubah nama kolum yang tadinya jumlah hibah menjadi jumlah investasi
+             $table->renameColumn('jumlah_hibah', 'jumlah');
         });
     }
 

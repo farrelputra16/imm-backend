@@ -30,7 +30,7 @@ class AddTipeInvestasiToCompanyIncome extends Migration
              * Private Equity
              * Initial Public Offering (IPO)
              */
-            $table->string('funding_type')->nullable()->after('jumlah_investasi');
+            $table->string('funding_type')->nullable()->after('jumlah');
             /**
              * Tipe investasi ini bisa berupa
              * Venture Capital

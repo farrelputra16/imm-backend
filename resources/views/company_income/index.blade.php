@@ -19,7 +19,9 @@
                         <th>Pengirim</th>
                         <th>Bank Asal</th>
                         <th>Bank Tujuan</th>
-                        <th>Jumlah Hibah</th>
+                        <th>Jumlah</th>
+                        <th>Funding type</th>
+                        <th>Tipe investasi</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -30,7 +32,9 @@
                             <td>{{ $income->pengirim }}</td>
                             <td>{{ $income->bank_asal }}</td>
                             <td>{{ $income->bank_tujuan }}</td>
-                            <td>{{ $income->jumlah_hibah }}</td>
+                            <td>{{ $income->jumlah }}</td>
+                            <td>{{ $income->funding_type }}</td>
+                            <td>{{ $income->tipe_investasi }}</td>
                             <td>
                                 {{-- View button --}}
                                 <a href="{{ route('company-income.show', $income->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>

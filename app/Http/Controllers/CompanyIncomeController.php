@@ -22,7 +22,6 @@ class CompanyIncomeController extends Controller
         if ($request->has('company_id')) {
             $selectedCompany = Company::findOrFail($request->company_id);
             $companyIncomes = $selectedCompany->incomes;
-            dd($companyIncomes);
         }
 
         return view('company_income.index', compact('selectedCompany', 'companyIncomes'));
@@ -41,7 +40,8 @@ class CompanyIncomeController extends Controller
             'pengirim' => 'required|string',
             'bank_asal' => 'required|string',
             'bank_tujuan' => 'required|string',
-            'jumlah_hibah' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+            'funding_type' => 'required|string',
             'company_id' => 'required|exists:companies,id',
         ]);
 
@@ -71,6 +71,7 @@ class CompanyIncomeController extends Controller
         'bank_asal' => 'required|string',
         'bank_tujuan' => 'required|string',
         'jumlah_hibah' => 'required|numeric',
+        'funding_type' => 'required|string',
     ]);
 
     $income = CompanyIncome::findOrFail($id);

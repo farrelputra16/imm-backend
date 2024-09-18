@@ -10,7 +10,9 @@
             <p><strong>Pengirim:</strong> {{ $income->pengirim }}</p>
             <p><strong>Bank Asal:</strong> {{ $income->bank_asal }}</p>
             <p><strong>Bank Tujuan:</strong> {{ $income->bank_tujuan }}</p>
-            <p><strong>Jumlah Hibah:</strong> {{ $income->jumlah_hibah }}</p>
+            <p><strong>Jumlah:</strong> {{ $income->jumlah }}</p>
+            <p><strong>Funding Type:</strong> {{ $income->funding_type }}</p>
+            <p><strong>Tipe Investasi:</strong> {{ $income->tipe_investasi }}</p>
         </div>
     </div>
     <a href="{{ route('company-income.index', ['company_id' => $income->company_id]) }}" class="btn btn-primary mt-3">Back</a>
