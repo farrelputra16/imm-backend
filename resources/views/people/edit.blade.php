@@ -9,8 +9,25 @@
             <form action="{{ route('people.update', $people->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <h5>User Information</h5>
+                    <label for="nama_depan">First Name:</label>
+                    <input type="text" class="form-control" id="nama_depan" name="nama_depan" value="{{ $people->user->nama_depan }}" required>
+
+                    <label for="nama_belakang">Last Name:</label>
+                    <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" value="{{ $people->user->nama_belakang }}" required>
+
+                    <label for="gmail">Email (Gmail):</label>
+                    <input type="email" class="form-control" id="gmail" name="gmail" value="{{ $people->user->email }}" required>
+
+                    <label for="password">Password (Leave blank to keep current):</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <div class="form-group">
+                    <h5>People Information</h5>
+                    <label for="name">Full Name:</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $people->name }}" required>
 
                     <label for="role">Role:</label>
@@ -47,10 +64,8 @@
 
                     <label for="phone_number">Phone Number:</label>
                     <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ $people->phone_number }}" required>
-
-                    <label for="gmail">Gmail:</label>
-                    <input type="email" class="form-control" id="gmail" name="gmail" value="{{ $people->gmail }}" required>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Update People</button>
             </form>
         </div>

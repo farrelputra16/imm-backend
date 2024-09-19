@@ -2,7 +2,7 @@
 
 @section('main-content')
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">{{ __('People') }}</h1>
+<h1 class="h3 mb-4 text-gray-800">{{ __('Create New People') }}</h1>
 
 @if (session('success'))
 <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -24,17 +24,29 @@
 @endif
 
 <div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Create New People</h1>
-
-    <!-- Form for creating new people -->
+    <!-- Form for creating new People and User -->
     <div class="card shadow mb-4">
         <div class="card-body">
             <form action="{{ route('people.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <h5>User Information</h5>
+                    <label for="nama_depan">First Name:</label>
+                    <input type="text" class="form-control" id="nama_depan" name="nama_depan" required>
+
+                    <label for="nama_belakang">Last Name:</label>
+                    <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" required>
+
+                    <label for="gmail">Email (Gmail):</label>
+                    <input type="email" class="form-control" id="gmail" name="gmail" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <h5>People Information</h5>
+                    <label for="name">Full Name:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
 
                     <label for="role">Role:</label>
@@ -71,15 +83,11 @@
 
                     <label for="phone_number">Phone Number:</label>
                     <input type="text" class="form-control" id="phone_number" name="phone_number" required>
-
-                    <label for="gmail">Gmail:</label>
-                    <input type="email" class="form-control" id="gmail" name="gmail" required>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Create People</button>
             </form>
         </div>
     </div>
-
 </div>
-
 @endsection

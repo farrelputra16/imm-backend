@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\People;
+use App\Models\Investor; // Import model Investor
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of users.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +21,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -27,13 +29,9 @@ class UserController extends Controller
     {
         return view('users.create');
     }
-    public function view($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.view', compact('user'));
-    }
+
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user and create corresponding People or Investor entry if needed.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -45,10 +43,11 @@ class UserController extends Controller
             'nama_belakang' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'role' => 'required|in:ADMIN,USER',
+            'role' => 'required|in:ADMIN,USER,INVESTOR,EVENT_ORGANIZER,PEOPLE',
         ]);
 
-        if ($request->role == 'USER') {
+        // Validate additional fields if role is USER, PEOPLE, or INVESTOR
+        if (in_array($request->role, ['USER', 'PEOPLE'])) {
             $request->validate([
                 'nik' => 'required',
                 'negara' => 'required',
@@ -58,25 +57,52 @@ class UserController extends Controller
             ]);
         }
 
+        // Create the new user
         $user = User::create($request->all());
+
+        // If role is PEOPLE, create a corresponding People entry
+        if ($request->role == 'PEOPLE') {
+            People::create([
+                'name' => "{$request->nama_depan} {$request->nama_belakang}",
+                'role' => 'pekerja', // Default role for People
+                'primary_job_title' => 'Unknown',
+                'primary_organization' => 'Unknown',
+                'location' => 'Unknown',
+                'regions' => 'Unknown',
+                'gender' => 'other',
+                'phone_number' => $request->telepon,
+                'gmail' => $request->email,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        // If role is INVESTOR, create a corresponding Investor entry
+        if ($request->role == 'INVESTOR') {
+            $request->validate([
+                'org_name' => 'required|string|max:255',
+                'number_of_contacts' => 'required|integer|min:0',
+                'number_of_investments' => 'required|integer|min:0',
+                'location' => 'required|string|max:255',
+                'description' => 'required|string',
+                'departments' => 'required|string|max:255',
+            ]);
+
+            Investor::create([
+                'user_id' => $user->id,
+                'org_name' => $request->org_name,
+                'number_of_contacts' => $request->number_of_contacts,
+                'number_of_investments' => $request->number_of_investments,
+                'location' => $request->location,
+                'description' => $request->description,
+                'departments' => $request->departments,
+            ]);
+        }
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -88,7 +114,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user and People or Investor entry in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -100,10 +126,10 @@ class UserController extends Controller
             'nama_depan' => 'required',
             'nama_belakang' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'role' => 'required|in:ADMIN,USER',
+            'role' => 'required|in:ADMIN,USER,INVESTOR,EVENT_ORGANIZER,PEOPLE',
         ]);
 
-        if ($request->role == 'USER') {
+        if (in_array($request->role, ['USER', 'PEOPLE', 'INVESTOR'])) {
             $request->validate([
                 'nik' => 'required',
                 'negara' => 'required',
@@ -116,11 +142,56 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
 
+        if ($user->role == 'PEOPLE') {
+            $people = People::where('user_id', $id)->first();
+
+            if ($people) {
+                $people->update([
+                    'name' => "{$request->nama_depan} {$request->nama_belakang}",
+                    'phone_number' => $request->telepon,
+                    'gmail' => $request->email,
+                ]);
+            } else {
+                People::create([
+                    'user_id' => $user->id,
+                    'name' => "{$request->nama_depan} {$request->nama_belakang}",
+                    'role' => 'pekerja',
+                    'phone_number' => $request->telepon,
+                    'gmail' => $request->email,
+                ]);
+            }
+        }
+
+        if ($user->role == 'INVESTOR') {
+            $investor = Investor::where('user_id', $id)->first();
+
+            if ($investor) {
+                $investor->update([
+                    'org_name' => $request->org_name,
+                    'number_of_contacts' => $request->number_of_contacts,
+                    'number_of_investments' => $request->number_of_investments,
+                    'location' => $request->location,
+                    'description' => $request->description,
+                    'departments' => $request->departments,
+                ]);
+            } else {
+                Investor::create([
+                    'user_id' => $user->id,
+                    'org_name' => $request->org_name,
+                    'number_of_contacts' => $request->number_of_contacts,
+                    'number_of_investments' => $request->number_of_investments,
+                    'location' => $request->location,
+                    'description' => $request->description,
+                    'departments' => $request->departments,
+                ]);
+            }
+        }
+
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -129,7 +200,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -21,6 +21,7 @@ class Investor extends Model
         'location',
         'description',
         'departments',
+        'user_id'
     ];
 
     /**
@@ -32,4 +33,5 @@ class Investor extends Model
         'number_of_contacts' => 'integer',
         'number_of_investments' => 'integer',
     ];
+
 }

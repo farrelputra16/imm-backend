@@ -1,63 +1,53 @@
-<!-- resources/views/investors/create.blade.php -->
 @extends('layouts.admin')
 
 @section('main-content')
-<!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">{{ __('Investor') }}</h1>
+<h1>Create New Investor</h1>
 
-@if (session('success'))
-<div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-
-@if ($errors->any())
-<div class="alert alert-danger border-left-danger" role="alert">
-    <ul class="pl-4 my-2">
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Create New Investor</h1>
-
-    <!-- Form for creating a new investor -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <form action="{{ route('investors.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="org_name">Organization Name:</label>
-                    <input type="text" class="form-control" id="org_name" name="org_name" required>
-
-                    <label for="number_of_contacts">Number of Contacts:</label>
-                    <input type="number" class="form-control" id="number_of_contacts" name="number_of_contacts" required>
-
-                    <label for="number_of_investments">Number of Investments:</label>
-                    <input type="number" class="form-control" id="number_of_investments" name="number_of_investments" required>
-
-                    <label for="location">Location:</label>
-                    <input type="text" class="form-control" id="location" name="location" required>
-
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
-
-                    <label for="departments">Departments:</label>
-                    <input type="text" class="form-control" id="departments" name="departments" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Create Investor</button>
-            </form>
-        </div>
+<form action="{{ route('investors.store') }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="org_name">Organization Name:</label>
+        <input type="text" name="org_name" id="org_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="number_of_contacts">Number of Contacts:</label>
+        <input type="number" name="number_of_contacts" id="number_of_contacts" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="number_of_investments">Number of Investments:</label>
+        <input type="number" name="number_of_investments" id="number_of_investments" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" class="form-control" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="departments">Departments:</label>
+        <input type="text" name="departments" id="departments" class="form-control" required>
+    </div>
+    <hr>
+    <h2>User Information</h2>
+    <div class="form-group">
+        <label for="nama_depan">First Name:</label>
+        <input type="text" name="nama_depan" id="nama_depan" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="nama_belakang">Last Name:</label>
+        <input type="text" name="nama_belakang" id="nama_belakang" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" class="form-control" required>
     </div>
 
-</div>
-
+    <button type="submit" class="btn btn-primary">Create Investor</button>
+</form>
 @endsection

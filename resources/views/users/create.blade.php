@@ -1,21 +1,17 @@
 @extends('layouts.admin')
 
 @section('main-content')
-<!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">{{ __('User') }}</h1>
+<h1 class="h3 mb-4 text-gray-800">{{ __('Create New User') }}</h1>
 
 @if (session('success'))
-<div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
+<div class="alert alert-success">
     {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
 </div>
 @endif
 
 @if ($errors->any())
-<div class="alert alert-danger border-left-danger" role="alert">
-    <ul class="pl-4 my-2">
+<div class="alert alert-danger">
+    <ul>
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
@@ -23,107 +19,111 @@
 </div>
 @endif
 
-<div class="container-fluid">
+<form action="{{ route('users.store') }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="role">Role:</label>
+        <select name="role" id="role" class="form-control">
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
+            <option value="PEOPLE">People</option>
+            <option value="INVESTOR">Investor</option>
+            <option value="EVENT_ORGANIZER">Event Organizer</option>
+        </select>
+    </div>
 
-    <!-- User Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Create New User</h1>
+    <div class="form-group">
+        <label for="nama_depan">First Name:</label>
+        <input type="text" name="nama_depan" id="nama_depan" class="form-control" required>
+    </div>
 
-    <!-- Form for creating a new user -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <form action="{{ route('users.store') }}" method="POST" id="userForm">
-                @csrf
-                <div class="form-group">
-                    <label for="role">Role:</label>
-                    <select name="role" id="role" class="form-control">
-                        <option value="ADMIN">Admin</option>
-                        <option value="USER">User</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="nama_depan">Nama Depan:</label>
-                    <input type="text" name="nama_depan" id="nama_depan" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="nama_belakang">Nama Belakang:</label>
-                    <input type="text" name="nama_belakang" id="nama_belakang" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                </div>
+    <div class="form-group">
+        <label for="nama_belakang">Last Name:</label>
+        <input type="text" name="nama_belakang" id="nama_belakang" class="form-control" required>
+    </div>
 
-                <!-- Additional fields for USER role -->
-                <div id="userFields" style="display: none;">
-                    <div class="form-group">
-                        <label for="nik">NIK:</label>
-                        <input type="text" name="nik" id="nik" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="negara">Negara:</label>
-                        <input type="text" name="negara" id="negara" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="provinsi">Provinsi:</label>
-                        <input type="text" name="provinsi" id="provinsi" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat:</label>
-                        <textarea name="alamat" id="alamat" class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="telepon">No Telepon:</label>
-                        <input type="text" name="telepon" id="telepon" class="form-control" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+    </div>
+
+    <!-- Additional fields for USER and PEOPLE role -->
+    <div id="userFields" style="display: none;">
+        <div class="form-group">
+            <label for="nik">NIK:</label>
+            <input type="text" name="nik" id="nik" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="negara">Country:</label>
+            <input type="text" name="negara" id="negara" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="provinsi">Province:</label>
+            <input type="text" name="provinsi" id="provinsi" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="alamat">Address:</label>
+            <textarea name="alamat" id="alamat" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="telepon">Phone Number:</label>
+            <input type="text" name="telepon" id="telepon" class="form-control">
         </div>
     </div>
 
-</div>
+    <!-- Additional fields for INVESTOR role -->
+    <div id="investorFields" style="display: none;">
+        <div class="form-group">
+            <label for="org_name">Organization Name:</label>
+            <input type="text" name="org_name" id="org_name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="number_of_contacts">Number of Contacts:</label>
+            <input type="number" name="number_of_contacts" id="number_of_contacts" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="number_of_investments">Number of Investments:</label>
+            <input type="number" name="number_of_investments" id="number_of_investments" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="departments">Departments:</label>
+            <input type="text" name="departments" id="departments" class="form-control">
+        </div>
+    </div>
 
-<!-- JavaScript to handle form fields based on role selection -->
+    <button type="submit" class="btn btn-primary">Create User</button>
+</form>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const roleSelect = document.getElementById('role');
         const userFields = document.getElementById('userFields');
-        const userForm = document.getElementById('userForm');
+        const investorFields = document.getElementById('investorFields');
 
-        // Function to show or hide fields based on role selection
-        function toggleFields() {
-            if (roleSelect.value === 'USER') {
+        roleSelect.addEventListener('change', function () {
+            if (roleSelect.value === 'INVESTOR') {
+                investorFields.style.display = 'block';
+            } else {
+                investorFields.style.display = 'none';
+            }
+
+            if (roleSelect.value === 'USER' || roleSelect.value === 'PEOPLE') {
                 userFields.style.display = 'block';
-                // Set required attribute to additional fields for USER role
-                document.querySelectorAll('#userFields [required]').forEach(function(field) {
-                    field.setAttribute('required', '');
-                });
             } else {
                 userFields.style.display = 'none';
-                // Remove required attribute from additional fields for ADMIN role
-                document.querySelectorAll('#userFields [required]').forEach(function(field) {
-                    field.removeAttribute('required');
-                });
-            }
-        }
-
-        // Initial state
-        toggleFields();
-
-        // Event listener for role selection change
-        roleSelect.addEventListener('change', toggleFields);
-
-        // Event listener for form submission
-        userForm.addEventListener('submit', function(event) {
-            // If role is ADMIN, remove required attribute from additional fields
-            if (roleSelect.value === 'ADMIN') {
-                document.querySelectorAll('#userFields [required]').forEach(function(field) {
-                    field.removeAttribute('required');
-                });
             }
         });
     });

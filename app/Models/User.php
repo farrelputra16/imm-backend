@@ -11,76 +11,40 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'email', 'password', 'nama_depan', 'nama_belakang', 'nik', 'negara', 'provinsi', 'alamat', 'telepon', 'role',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get the user's full name.
-     *
-     * @return string
-     */
     public function getFullNameAttribute()
     {
-        if (is_null($this->nama_belakang)) {
-            return "{$this->nama_depan}";
-        }
-
         return "{$this->nama_depan} {$this->nama_belakang}";
     }
 
-    /**
-     * Set the user's password.
-     *
-     * @param string $value
-     * @return void
-     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
     }
 
-     /**
-     * Set the default role for the user.
-     *
-     * @param string $value
-     * @return void
-     */
     public function setRoleAttribute($value)
     {
-        $this->attributes['role'] = in_array($value, ['ADMIN', 'USER']) ? $value : 'USER';
+        $this->attributes['role'] = in_array($value, ['ADMIN', 'USER', 'INVESTOR', 'EVENT ORGANIZER', 'PEOPLE']) ? $value : 'USER';
     }
 
-    public function companies()
+    public function people()
     {
-        return $this->hasMany(Company::class);
+        return $this->hasOne(People::class, 'user_id');
     }
-
-    public function events()
+    public function investor()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->hasOne(Investor::class, 'user_id');
     }
 }
+
