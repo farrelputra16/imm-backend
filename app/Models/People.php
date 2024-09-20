@@ -20,10 +20,10 @@ class People extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Relationship with Company through Team
+    // Relasi many-to-many dengan Company melalui tabel team
     public function companies()
     {
-        return $this->belongsToMany(Company::class, 'team')->withPivot('position');
+        return $this->belongsToMany(Company::class, 'team')->withPivot('position')->withTimestamps();
     }
 }
 
