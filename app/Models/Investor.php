@@ -34,4 +34,9 @@ class Investor extends Model
         'number_of_investments' => 'integer',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
