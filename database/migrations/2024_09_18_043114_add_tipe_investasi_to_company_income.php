@@ -15,7 +15,7 @@ class AddTipeInvestasiToCompanyIncome extends Migration
     {
         Schema::table('company_income', function (Blueprint $table) {
             /**
-             * Funding type ini bisa berupa Pre-seed Funding
+             * Funding type ini bisa berupa pre_seed Funding
              * Seed Funding
              * Series A Funding
              * Series B Funding

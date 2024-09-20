@@ -19,5 +19,11 @@ class People extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Relationship with Company through Team
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'team')->withPivot('position');
+    }
 }
 
