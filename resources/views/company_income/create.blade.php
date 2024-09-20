@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="funding_type">Funding Type</label>
             <select name="funding_type" id="funding_type" class="form-control" required>
-                <option value="pre-seed" {{ old('funding_type') === 'pre-seed' ? 'selected' : '' }}>Pre-seed Funding</option>
+                <option value="pre_seed" {{ old('funding_type') === 'pre_seed' ? 'selected' : '' }}>pre_seed Funding</option>
                 <option value="seed" {{ old('funding_type') === 'seed' ? 'selected' : '' }}>Seed Funding</option>
                 <option value="series_a" {{ old('funding_type') === 'series_a' ? 'selected' : '' }}>Series A Funding</option>
                 <option value="series_b" {{ old('funding_type') === 'series_b' ? 'selected' : '' }}>Series B Funding</option>
