@@ -37,4 +37,9 @@ class Company extends Model
     {
         return $this->belongsToMany(People::class, 'team')->withPivot('position')->withTimestamps();
     }
+    // Hubungan dengan Product
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
