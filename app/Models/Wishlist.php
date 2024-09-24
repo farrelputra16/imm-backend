@@ -15,8 +15,8 @@ class Wishlist extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function project()
+    public function company()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Company::class);
     }
 }
