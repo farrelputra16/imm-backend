@@ -142,4 +142,19 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')
             ->with('success', 'Company deleted successfully.');
     }
+
+    /**
+     * Special route for product dimana nanti akan mengambil semua company yang memiliki product dan tidak memiliki product
+     */
+    public function companyWithProduct(){
+        $companies = Company::with('products')->get();
+        // Filter company yang memiliki product dan tidak memiliki product
+        $companiesWithProducts = $companies->filter(function($company){
+            return $company->products->count() > 0;
+        });
+        $companiesWithoutProducts = $companies->filter(function($company){
+            return $company->products->count() == 0;
+        });
+        return view('products.view', compact('companiesWithProducts', 'companiesWithoutProducts'));
+    }
 }
