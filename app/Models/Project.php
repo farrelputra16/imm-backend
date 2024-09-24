@@ -61,5 +61,11 @@ class Project extends Model
     {
         return $this->hasMany(User::class);
     }
+    // Project.php
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
 }
 
