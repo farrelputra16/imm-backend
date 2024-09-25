@@ -129,7 +129,7 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Companies -->
+            <!-- Nav Item - Investors -->
             <li class="nav-item {{ Nav::isRoute('investors') }}">
                 <a class="nav-link" href="{{ route('investors.index') }}">
                     <i class="fas fa-fw fa-building"></i>
@@ -137,7 +137,7 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Companies -->
+            <!-- Nav Item - People -->
             <li class="nav-item {{ Nav::isRoute('people') }}">
                 <a class="nav-link" href="{{ route('people.index') }}">
                     <i class="fas fa-fw fa-building"></i>
@@ -145,7 +145,7 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Companies -->
+            <!-- Nav Item - Hubs -->
             <li class="nav-item {{ Nav::isRoute('hubs') }}">
                 <a class="nav-link" href="{{ route('hubs.index') }}">
                     <i class="fas fa-fw fa-building"></i>
@@ -166,6 +166,14 @@
                 <a class="nav-link" href="{{ route('projects.index') }}">
                     <i class="fas fa-fw fa-project-diagram"></i>
                     <span>{{ __('Projects') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Product -->
+            <li class="nav-item {{ Nav::isRoute('products') }}">
+                <a class="nav-link" href="{{ route('companies.products') }}">
+                    <i class="fas fa-fw fa-box"></i>
+                    <span>{{ __('Reporting Company Products') }}</span>
                 </a>
             </li>
 

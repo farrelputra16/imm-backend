@@ -1,24 +1,25 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SdgController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\HubsController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\MetricController;
+use App\Http\Controllers\PeopleController;
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InvestorController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\SdgController;
 use App\Http\Controllers\IndicatorController;
-use App\Http\Controllers\MetricController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\MetricProjectController;
-use App\Http\Controllers\SurveyController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\CompanyIncomeController;
+use App\Http\Controllers\MetricProjectController;
 use App\Http\Controllers\CompanyOutcomeController;
-use App\Http\Controllers\PeopleController;
-use App\Http\Controllers\HubsController;
 
 
 
@@ -162,6 +163,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('metric-projects/{metricProject}/store-report', [MetricProjectController::class, 'storeReport'])->name('metric-projects.storeReport');
     });
 
+    // Route untuk Product
+    Route::get('/products', [CompanyController::class, 'companyWithProduct'])->name('companies.products');
+    Route::get('/companies/{id}/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/companies/{id}/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/companies/{id}/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get('surveys', [SurveyController::class, 'index'])->name('surveys.index');
     Route::get('surveys/create', [SurveyController::class, 'create'])->name('surveys.create');
