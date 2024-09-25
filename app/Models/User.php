@@ -30,11 +30,6 @@ class User extends Authenticatable
         return "{$this->nama_depan} {$this->nama_belakang}";
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function setRoleAttribute($value)
     {
         $this->attributes['role'] = in_array($value, ['ADMIN', 'USER', 'INVESTOR', 'EVENT ORGANIZER', 'PEOPLE']) ? $value : 'USER';
