@@ -21,7 +21,7 @@
                 <label for="cover_img">Cover Image:</label>
                 <div id="cover_img">
                     @if ($event->cover_img)
-                        <img src="{{ asset('images/' . $event->cover_img) }}" height="50" width="50" alt="Event Cover Image">
+                        <img src="{{ $event->cover_img }}" height="50" width="50" alt="Event Cover Image">
                         <p>{{ basename($event->cover_img) }}</p>
                     @else
                         <p>No cover image</p>
@@ -32,7 +32,7 @@
                 <label for="hero_img">Hero Image:</label>
                 <div id="hero_img">
                     @if ($event->hero_img)
-                        <img src="{{ asset('images/' . $event->hero_img) }}" height="50" width="50" alt="Event Cover Image">
+                        <img src="{{ $event->hero_img }}" height="50" width="50" alt="Event Cover Image">
                         <p>{{ basename($event->hero_img) }}</p>
                     @else
                         <p>No hero image</p>

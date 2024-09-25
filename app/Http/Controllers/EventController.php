@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log; // Import Log facade
 
 class EventController extends Controller
@@ -12,6 +13,11 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::withCount('users')->get();
+        // Loop untuk mendapatkan setiap image yang disimpan di storage untuk cover dan hero
+        foreach ($events as $event) {
+            $event->cover_img = Storage::url('public/img/' . $event->cover_img);
+            $event->hero_img = Storage::url('public/img/' . $event->hero_img);
+        }
         return view('events.index', compact('events'));
     }
 
@@ -46,12 +52,15 @@ class EventController extends Controller
             'hero_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
         ]);
 
-        // Handle file upload
+        // Handle file upload menggatinya agar di store di storage supaya bisa diakses dari frontend
         $coverImageName = time() . 'cover' . '.' . $request->cover_img->extension();
-        $request->cover_img->move(public_path('images'), $coverImageName);
+        // $request->cover_img->move(public_path('img'), $coverImageName);
+        $request->file('cover_img')->storeAs('public/img', $coverImageName);
+
 
         $heroImageName = time() . 'hero' . '.' . $request->hero_img->extension();
-        $request->hero_img->move(public_path('images'), $heroImageName);
+        // $request->hero_img->move(public_path('img'), $heroImageName);
+        $request->file('hero_img')->storeAs('public/img', $heroImageName);
 
         // Create and save the event
         $event = new Event();
@@ -106,25 +115,25 @@ class EventController extends Controller
         // Handle image update if provided
         if ($request->hasFile('cover_img')) {
             // Delete old image if exists
-            if ($event->cover_img && file_exists(public_path('images/' . $event->cover_img))) {
-                unlink(public_path('images/' . $event->cover_img));
+            if ($event->cover_img && file_exists(public_path('img/' . $event->cover_img))) {
+                unlink(public_path('img/' . $event->cover_img));
             }
 
             // Move and save new image
             $coverImageName = time() . '.' . $request->cover_img->extension();
-            $request->cover_img->move(public_path('images'), $coverImageName);
+            $request->cover_img->move(public_path('img'), $coverImageName);
             $event->cover_img = $coverImageName;
         }
 
         if ($request->hasFile('hero_img')) {
             // Delete old image if exists
-            if ($event->hero_img && file_exists(public_path('images/' . $event->hero_img))) {
-                unlink(public_path('images/' . $event->hero_img));
+            if ($event->hero_img && file_exists(public_path('img/' . $event->hero_img))) {
+                unlink(public_path('img/' . $event->hero_img));
             }
 
             // Move and save new image
             $heroImageName = time() . '.' . $request->hero_img->extension();
-            $request->hero_img->move(public_path('images'), $heroImageName);
+            $request->hero_img->move(public_path('img'), $heroImageName);
             $event->hero_img = $heroImageName;
         }
 
@@ -144,14 +153,29 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $users = User::all();
         $eventUsers = $event->users->pluck('id')->toArray();
+        $event->cover_img = Storage::url('public/img/' . $event->cover_img);
+        $event->hero_img = Storage::url('public/img/' . $event->hero_img);
         return view('events.view', compact('event', 'users', 'eventUsers'));
     }
 
     public function destroy($id)
     {
         $event = Event::findOrFail($id);
+
+        // Cek dan hapus file gambar cover jika ada
+        if ($event->cover_img && Storage::disk('local')->exists('public/img/' . $event->cover_img)) {
+            Storage::disk('local')->delete('public/img/' . $event->cover_img);
+        }
+
+        // Cek dan hapus file gambar hero jika ada
+        if ($event->hero_img && Storage::disk('local')->exists('public/img/' . $event->hero_img)) {
+            Storage::disk('local')->delete('public/img/' . $event->hero_img);
+        }
+
+        // Hapus event dari database
         $event->delete();
 
         return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }
+
 }

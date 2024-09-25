@@ -3,7 +3,7 @@
 @section('main-content')
     <div class="container">
         <h1>Events</h1>
-        <a href="{{ route('events.create') }}" class="btn btn-primary">Create Event</a>
+        <a href="{{ route('events.create') }}" class="btn btn-primary" style="margin-bottom: 20px;">Create Event</a>
         @if ($events->isEmpty())
             <p>No event found.</p>
         @else
@@ -31,7 +31,7 @@
                             <td>{{ $event->topic }}</td>
                             <td>
                                 @if ($event->cover_img)
-                                    <img src="{{ asset('images/' . $event->cover_img) }}" height="50" width="50"
+                                    <img src="{{$event->cover_img}}" height="50" width="50"
                                         alt="Event Cover Image">
                                 @else
                                     <p>No cover image</p>
@@ -39,7 +39,7 @@
                             </td>
                             <td>
                                 @if ($event->hero_img)
-                                    <img src="{{ asset('images/' . $event->hero_img) }}" height="50" width="50"
+                                    <img src="{{$event->hero_img}}" height="50" width="50"
                                         alt="Event Hero Image">
                                 @else
                                     <p>No hero image</p>

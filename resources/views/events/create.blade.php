@@ -19,11 +19,11 @@
             </div>
             <div class="form-group">
                 <label for="cover_img">Cover Image:</label>
-                <input type="file" name="cover_img" class="form-control">
+                <input type="file" name="cover_img" class="form-control" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp">
             </div>
             <div class="form-group">
                 <label for="hero_img">Hero Image:</label>
-                <input type="file" name="hero_img" class="form-control">
+                <input type="file" name="hero_img" class="form-control" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp">
             </div>
             <div class="form-group">
                 <label for="location">Location</label>
