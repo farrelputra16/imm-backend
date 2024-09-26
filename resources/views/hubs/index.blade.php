@@ -18,31 +18,27 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Location</th>
-                            <th>Number of Organizations</th>
-                            <th>Number of People</th>
-                            <th>Number of Events</th>
+                            <th>Provinsi</th>
+                            <th>Kota</th>
                             <th>Rank</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($hubs as $hub)
+                        @foreach ($hubs as $hubsItem)
                             <tr>
-                                <td>{{ $hub->name }}</td>
-                                <td>{{ $hub->location }}</td>
-                                <td>{{ $hub->number_of_organizations }}</td>
-                                <td>{{ $hub->number_of_people }}</td>
-                                <td>{{ $hub->number_of_events }}</td>
-                                <td>{{ $hub->rank }}</td>
+                                <td>{{ $hubsItem->name }}</td>
+                                <td>{{ $hubsItem->provinsi }}</td>
+                                <td>{{ $hubsItem->kota }}</td>
+                                <td>{{ $hubsItem->rank }}</td>
                                 <td>
-                                    <a href="{{ route('hubs.edit', $hub->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('hubs.destroy', $hub->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('hubs.edit', $hubsItem->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('hubs.destroy', $hubsItem->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     </form>
-                                    <a href="{{ route('hubs.show', $hub->id) }}" class="btn btn-sm btn-info">View</a>
+                                    <a href="{{ route('hubs.show', $hubsItem->id) }}" class="btn btn-sm btn-info">View</a>
                                 </td>
                             </tr>
                         @endforeach

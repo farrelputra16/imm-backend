@@ -42,4 +42,8 @@ class Company extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function hubs()
+    {
+        return $this->belongsToMany(Hubs::class, 'company_hubs', 'company_id', 'hubs_id');
+    }
 }

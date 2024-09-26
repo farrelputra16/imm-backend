@@ -25,5 +25,9 @@ class People extends Model
     {
         return $this->belongsToMany(Company::class, 'team')->withPivot('position')->withTimestamps();
     }
+    public function hubs()
+    {
+        return $this->belongsToMany(Hubs::class, 'hubs_people', 'people_id', 'hubs_id');
+    }
 }
 

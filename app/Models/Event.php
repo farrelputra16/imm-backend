@@ -25,4 +25,9 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function hubs()
+    {
+        return $this->belongsToMany(Hubs::class, 'event_hubs', 'event_id', 'hubs_id');
+    }
+
 }

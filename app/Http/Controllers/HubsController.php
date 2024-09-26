@@ -3,35 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hubs;
+use App\Models\Company;
+use App\Models\People;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class HubsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar hubs.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // Mengambil semua data hubs dan menampilkannya
-        $hubs = Hubs::all();
+        // Mengambil semua data hubs beserta relasinya
+        $hubs = Hubs::with(['companies', 'people', 'events'])->get();
         return view('hubs.index', compact('hubs'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form untuk membuat hubs baru.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        // Menampilkan form untuk membuat hubs baru
-        return view('hubs.create');
+        // Mengambil data companies, people, dan events untuk dropdown
+        $companies = Company::all();
+        $people = People::all();
+        $events = Event::all();
+
+        return view('hubs.create', compact('companies', 'people', 'events'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan hubs baru ke database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,92 +48,133 @@ class HubsController extends Controller
         // Validasi input dari form
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'number_of_organizations' => 'required|integer',
-            'number_of_people' => 'required|integer',
-            'number_of_events' => 'required|integer',
+            'provinsi' => 'required|string|max:255',
+            'kota' => 'required|string|max:255',
             'rank' => 'required|integer',
             'top_investor_types' => 'nullable|string',
             'top_funding_types' => 'nullable|string',
             'description' => 'nullable|string',
+            'company_ids' => 'array',
+            'company_ids.*' => 'exists:companies,id',
+            'people_ids' => 'array',
+            'people_ids.*' => 'exists:people,id',
+            'event_ids' => 'array',
+            'event_ids.*' => 'exists:events,id',
         ]);
 
         // Membuat hubs baru
-        Hubs::create($request->all());
+        $hubs = Hubs::create($request->only([
+            'name',
+            'provinsi',
+            'kota',
+            'rank',
+            'top_investor_types',
+            'top_funding_types',
+            'description',
+        ]));
+
+        // Menyimpan relasi many-to-many
+        $hubs->companies()->attach($request->input('company_ids', []));
+        $hubs->people()->attach($request->input('people_ids', []));
+        $hubs->events()->attach($request->input('event_ids', []));
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('hubs.index')
-                         ->with('success', 'Hub created successfully.');
+                         ->with('success', 'Hubs berhasil dibuat.');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail hubs tertentu.
      *
-     * @param  \App\Models\Hubs $hub
+     * @param  \App\Models\Hubs $hubs
      * @return \Illuminate\Http\Response
      */
-    public function show(Hubs $hub)
+    public function show(Hubs $hubs)
     {
-        // Menampilkan detail dari hub tertentu
-        return view('hubs.show', compact('hub'));
+        // Memuat relasi terkait
+        $hubs->load(['companies', 'people', 'events']);
+        return view('hubs.show', compact('hubs'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan form untuk mengedit hubs.
      *
-     * @param  \App\Models\Hubs  $hub
+     * @param  \App\Models\Hubs  $hubs
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hubs $hub)
+    public function edit(Hubs $hubs)
     {
-        // Menampilkan form untuk mengedit hub
-        return view('hubs.edit', compact('hub'));
+        // Mengambil data untuk dropdown
+        $companies = Company::all();
+        $people = People::all();
+        $events = Event::all();
+
+        // Memuat relasi terkait
+        $hubs->load(['companies', 'people', 'events']);
+
+        return view('hubs.edit', compact('hubs', 'companies', 'people', 'events'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mengupdate data hubs di database.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hubs  $hub
+     * @param  \App\Models\Hubs  $hubs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hubs $hub)
+    public function update(Request $request, Hubs $hubs)
     {
         // Validasi input dari form
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'number_of_organizations' => 'required|integer',
-            'number_of_people' => 'required|integer',
-            'number_of_events' => 'required|integer',
+            'provinsi' => 'required|string|max:255',
+            'kota' => 'required|string|max:255',
             'rank' => 'required|integer',
             'top_investor_types' => 'nullable|string',
             'top_funding_types' => 'nullable|string',
             'description' => 'nullable|string',
+            'company_ids' => 'array',
+            'company_ids.*' => 'exists:companies,id',
+            'people_ids' => 'array',
+            'people_ids.*' => 'exists:people,id',
+            'event_ids' => 'array',
+            'event_ids.*' => 'exists:events,id',
         ]);
 
-        // Mengupdate data hub
-        $hub->update($request->all());
+        // Mengupdate data hubs
+        $hubs->update($request->only([
+            'name',
+            'provinsi',
+            'kota',
+            'rank',
+            'top_investor_types',
+            'top_funding_types',
+            'description',
+        ]));
+
+        // Sinkronisasi relasi many-to-many
+        $hubs->companies()->sync($request->input('company_ids', []));
+        $hubs->people()->sync($request->input('people_ids', []));
+        $hubs->events()->sync($request->input('event_ids', []));
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('hubs.index')
-                         ->with('success', 'Hub updated successfully.');
+                         ->with('success', 'Hubs berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus hubs dari database.
      *
-     * @param  \App\Models\Hubs  $hub
+     * @param  \App\Models\Hubs  $hubs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hubs $hub)
+    public function destroy(Hubs $hubs)
     {
-        // Menghapus hub dari database
-        $hub->delete();
+        // Menghapus hubs
+        $hubs->delete();
 
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('hubs.index')
-                         ->with('success', 'Hub deleted successfully.');
+                         ->with('success', 'Hubs berhasil dihapus.');
     }
 }
-

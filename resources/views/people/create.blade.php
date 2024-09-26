@@ -70,9 +70,8 @@
 
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender" required>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="Laki-laki">Male</option>
+                        <option value="Perempuan">Female</option>
                     </select>
 
                     <label for="linkedin_link">LinkedIn Link:</label>
