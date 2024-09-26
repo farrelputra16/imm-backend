@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\People;
@@ -19,7 +19,7 @@ class UserController extends Controller
         $users = User::all();
         return view('users.index', compact('users'));
     }
-
+    
     /**
      * Show the form for creating a new user.
      *
@@ -112,6 +112,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('users.edit', compact('user'));
     }
+
+
 
     /**
      * Update the specified user and People or Investor entry in storage.

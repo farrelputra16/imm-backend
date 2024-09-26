@@ -237,6 +237,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/hubs/{hub}', [HubsController::class, 'update'])->name('hubs.update');
     Route::delete('/hubs/{hub}', [HubsController::class, 'destroy'])->name('hubs.destroy');
     Route::get('/hubs/{hub}/show', [HubsController::class, 'show'])->name('hubs.show');
+    Route::post('hubs/{hub}/approve', [HubsController::class, 'approve'])->name('hubs.approve');
 
+    // Route untuk menolak hubs
+    Route::post('hubs/{hub}/reject', [HubsController::class, 'reject'])->name('hubs.reject');
 
 });
