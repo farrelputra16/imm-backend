@@ -27,7 +27,7 @@ class Event extends Model
     }
     public function hubs()
     {
-        return $this->belongsToMany(Hubs::class, 'event_hubs', 'event_id', 'hubs_id');
+        return $this->belongsToMany(Hubs::class, 'event_hubs', 'event_id', 'hub_id');
     }
 
 }

@@ -41,7 +41,7 @@
                     <label for="company_ids">Companies:</label>
                     <select name="company_ids[]" id="company_ids" class="form-control" multiple>
                         @foreach($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                            <option value="{{ $company->id }}">{{ $company->nama }}</option>
                         @endforeach
                     </select>
 
@@ -57,7 +57,7 @@
                     <label for="event_ids">Events:</label>
                     <select name="event_ids[]" id="event_ids" class="form-control" multiple>
                         @foreach($events as $event)
-                            <option value="{{ $event->id }}">{{ $event->name }}</option>
+                            <option value="{{ $event->id }}">{{ $event->title }}</option>
                         @endforeach
                     </select>
                 </div>

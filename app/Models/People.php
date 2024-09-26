@@ -27,7 +27,7 @@ class People extends Model
     }
     public function hubs()
     {
-        return $this->belongsToMany(Hubs::class, 'hubs_people', 'people_id', 'hubs_id');
+        return $this->belongsToMany(Hubs::class, 'hubs_people', 'people_id', 'hub_id');
     }
 }
 
