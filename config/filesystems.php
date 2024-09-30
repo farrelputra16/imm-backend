@@ -63,6 +63,13 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'endpoint' => env('AWS_URL'),
         ],
+        // Disk 'be' untuk akses backend storage
+        'fe' => [
+            'driver' => 'local',
+            'root' => public_path('../images'),
+            'url' => env('APP_URL').'/images',
+            'visibility' => 'public',
+        ]
 
     ],
 
