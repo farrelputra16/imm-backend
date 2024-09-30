@@ -19,7 +19,7 @@ class UserController extends Controller
         $users = User::all();
         return view('users.index', compact('users'));
     }
-    
+
     /**
      * Show the form for creating a new user.
      *
