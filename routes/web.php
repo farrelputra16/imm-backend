@@ -20,6 +20,7 @@ use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\MetricProjectController;
 use App\Http\Controllers\CompanyOutcomeController;
+use App\Http\Controllers\InvestmentController;
 
 
 
@@ -240,6 +241,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('hubs/{hub}/approve', [HubsController::class, 'approve'])->name('hubs.approve');
 
     // Route untuk menolak hubs
-    Route::post('hubs/{hub}/reject', [HubsController::class, 'reject'])->name('hubs.reject');
+    Route::get('investments', [InvestmentController::class, 'index'])->name('investments.index');
+
+    // Route untuk approve investasi
+    Route::post('investments/{investment}/approve', [InvestmentController::class, 'approve'])->name('investments.approve');
+
+    // Route untuk reject investasi
+    Route::post('investments/{investment}/reject', [InvestmentController::class, 'reject'])->name('investments.reject');
+
+    // Route untuk menghapus investasi
+    Route::delete('investments/{investment}', [InvestmentController::class, 'destroy'])->name('investments.destroy');
+
+    // Route untuk menampilkan detail investasi
+    Route::get('investments/{investment}', [InvestmentController::class, 'show'])->name('investments.show');
+
+    // Route untuk mengedit investasi
+    Route::get('investments/{investment}/edit', [InvestmentController::class, 'edit'])->name('investments.edit');
 
 });
