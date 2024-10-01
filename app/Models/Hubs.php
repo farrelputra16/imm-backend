@@ -34,7 +34,7 @@ class Hubs extends Model
 
     public function companies()
     {
-        return $this->belongsToMany(Company::class, 'company_hubs', 'hub_id', 'company_id');
+        return $this->belongsToMany(Company::class, 'company_hub', 'hub_id', 'company_id');
     }
     public function user()
     {
@@ -43,11 +43,11 @@ class Hubs extends Model
 
     public function people()
     {
-        return $this->belongsToMany(People::class, 'hubs_people', 'hub_id', 'people_id');
+        return $this->belongsToMany(People::class, 'hub_people', 'hub_id', 'people_id');
     }
 
     public function events()
     {
-        return $this->belongsToMany(Event::class, 'event_hubs', 'hub_id', 'event_id');
+        return $this->belongsToMany(Event::class, 'event_hub', 'hub_id', 'event_id');
     }
 }
