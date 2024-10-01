@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\People;
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,8 +29,8 @@ class PeopleController extends Controller
      */
     public function create()
     {
-        // Show form to create new people
-        return view('people.create');
+        $companies = Company::all();
+        return view('people.create', compact('companies'));
     }
 
     /**
@@ -96,11 +97,17 @@ class PeopleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        // Find the specific person by id
-        $people = People::findOrFail($id);
-        return view('people.edit', compact('people'));
-    }
+{
+    // Ambil data People berdasarkan ID
+    $people = People::findOrFail($id);
+
+    // Ambil daftar perusahaan untuk dropdown
+    $companies = Company::all();
+
+    // Kirimkan data 'people' dan 'companies' ke view
+    return view('people.edit', compact('people', 'companies'));
+}
+
 
     /**
      * Update the specified person and associated user in storage.

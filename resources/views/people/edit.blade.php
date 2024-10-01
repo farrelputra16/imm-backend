@@ -41,7 +41,14 @@
                     <input type="text" class="form-control" id="primary_job_title" name="primary_job_title" value="{{ $people->primary_job_title }}" required>
 
                     <label for="primary_organization">Primary Organization:</label>
-                    <input type="text" class="form-control" id="primary_organization" name="primary_organization" value="{{ $people->primary_organization }}" required>
+                    <select class="form-control" id="primary_organization" name="primary_organization">
+                        <option value="">-- Select a Company (optional) --</option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}" @if($people->primary_organization == $company->id) selected @endif>
+                                {{ $company->nama }}
+                            </option>
+                        @endforeach
+                    </select>
 
                     <label for="location">Location:</label>
                     <input type="text" class="form-control" id="location" name="location" value="{{ $people->location }}" required>
@@ -51,9 +58,8 @@
 
                     <label for="gender">Gender:</label>
                     <select class="form-control" id="gender" name="gender" required>
-                        <option value="male" @if($people->gender === 'male') selected @endif>Male</option>
-                        <option value="female" @if($people->gender === 'female') selected @endif>Female</option>
-                        <option value="other" @if($people->gender === 'other') selected @endif>Other</option>
+                        <option value="Laki-laki" @if($people->gender === 'Laki-laki') selected @endif>Male</option>
+                        <option value="Perempuan" @if($people->gender === 'Perempuan') selected @endif>Female</option>
                     </select>
 
                     <label for="linkedin_link">LinkedIn Link:</label>
