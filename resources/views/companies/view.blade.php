@@ -89,8 +89,9 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        text-align: center;
         justify-content: space-between;
-        padding: 15px;
+        padding: 20px;
         background: #ffffff;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
@@ -221,6 +222,23 @@
     .fs-1 {
         font-size: 2rem;
     } 
+    table {
+        table-layout:auto;
+        width: 100%;
+
+    }
+
+    th.word-wrap, td.word-wrap {
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        word-break: break-all !important;
+        overflow-wrap: break-word !important;
+        overflow-x: show !important;
+        text-align: left;
+    }
+    tr {
+        text-align: center; /* Gaya untuk semua baris */
+    } 
 </style>
 @endsection
 
@@ -250,7 +268,7 @@
 
                 <div class="company-label">
                     <i class="bi bi-globe icon"></i>
-                    <a href="/search/organizations/location/united-states" class="location-link">{{ $company->profile }}</a>
+                    <a href="{{ $company->profile }}" class="location-link">{{ $company->profile }}</a>
                 </div>
             </div>
 
@@ -446,6 +464,75 @@
                 </div>
             </div>
         </div>
+        <div class="container mt-5">
+            <h2 class="text-center mb-5 text-primary">Hubs Overview</h2>
+            <h4 class="text-center mb-5 text-primary">Approved ({{ $approvedHubs->count() }})</h4>
+            @if ($approvedHubs->isEmpty())
+                <p class="text-center">No approved Hubs.</p>
+            @else
+            <table id="hubsTable" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hub Name</th>
+                        <th>Province</th>
+                        <th>City</th>
+                        <th>Top Investor Types</th>
+                        <th>Top Funding Types</th>
+                        <th>Rank</th>
+                        <th class="word-wrap">Description</th> <!-- Kelas untuk kolom deskripsi -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($approvedHubs as $approve)
+                        <tr>
+                            <td>{{ $approve->name }}</td>
+                            <td>{{ $approve->provinsi }}</td>
+                            <td>{{ $approve->kota }}</td>
+                            <td>{{ $approve->top_investor_types }}</td>
+                            <td>{{ $approve->top_funding_types }}</td>
+                            <td>{{ $approve->rank }}</td>
+                            <td class="word-wrap">{{ $approve->description }}</td> <!-- Kolom deskripsi -->
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+        <div class="container mt-5" style="margin-bottom: 50px;">
+            <div class="section mt-5">
+                <h4 class="text-center mb-5">Pending ({{ $pendingHubs->count() }})</h4>
+                @if($pendingHubs->isEmpty())
+                    <p class="text-center">No pending Hubs.</p>
+                @else
+                <table id="hubsTable" class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Hub Name</th>
+                            <th>Province</th>
+                            <th>City</th>
+                            <th>Top Investor Types</th>
+                            <th>Top Funding Types</th>
+                            <th>Rank</th>
+                            <th class="word-wrap">Description</th> <!-- Kelas untuk kolom deskripsi -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pendingHubs as $pending)
+                            <tr>
+                                <td>{{ $pending->name }}</td>
+                                <td>{{ $pending->provinsi }}</td>
+                                <td>{{ $pending->kota }}</td>
+                                <td>{{ $pending->top_investor_types }}</td>
+                                <td>{{ $pending->top_funding_types }}</td>
+                                <td>{{ $pending->rank }}</td>
+                                <td class="word-wrap">{{ $pending->description }}</td> <!-- Kolom deskripsi -->
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 
@@ -469,6 +556,22 @@
 <script>
     $(document).ready(function() {
         $('#incomeTable').DataTable();
+
+        // Konfigurasi DataTable jika diperlukan
+        $('#hubsTable').DataTable({
+            responsive: true,
+            autoWidth: true,
+            columnDefs: [
+                { width: '10%', targets: 0 },
+                { width: '10%', targets: 1 },
+                { width: '10%', targets: 2 },
+                { width: '10%', targets: 3 },
+                { width: '10%', targets: 4 },
+                { width: '5%', targets: 5 },
+                { width: '40%', targets: 6 }
+            ]
+        });
     });
 </script>
+  
 @endsection

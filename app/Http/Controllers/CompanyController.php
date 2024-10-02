@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sdg;
+use App\Models\Hubs;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -141,7 +143,11 @@ class CompanyController extends Controller
         $ongoingProjects = $allprojectQuery->where('status', 'Belum selesai')->get();
         $completedProjects = $allprojectQuery->where('status', 'Selesai')->get();
 
-        return view('companies.view', compact('company', 'ongoingProjects', 'completedProjects'));
+        $hubs = Hubs::where('user_id', $company->user_id)->get();
+        $approvedHubs = $hubs->where('status', 'approved');
+        $pendingHubs = $hubs->where('status', 'pending');
+        
+        return view('companies.view', compact('company', 'ongoingProjects', 'completedProjects', 'approvedHubs', 'pendingHubs'));
     }
 
     /**
