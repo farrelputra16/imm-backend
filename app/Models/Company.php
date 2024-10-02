@@ -37,14 +37,10 @@ class Company extends Model
     {
         return $this->belongsToMany(People::class, 'team')->withPivot('position')->withTimestamps();
     }
-    // Hubungan dengan Product
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+    // Hubungan many-to-many dengan Hubs
     public function hubs()
     {
-        return $this->belongsToMany(Hubs::class, 'company_hubs', 'company_id', 'hub_id');
+        return $this->belongsToMany(Hubs::class, 'company_hub', 'company_id', 'hub_id');
     }    
     // Hubungan dengan Project
     public function projects()

@@ -90,7 +90,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
     Route::get('/companies/{id}/view', [CompanyController::class, 'view'])->name('companies.view');
     Route::get('/companies/{id}/team', [CompanyController::class, 'showTeam'])->name('companies.team');
-    Route::get('/companies/{id}/project', [CompanyController::class, 'showProducts'])->name('companies.project');
 
 
     // Route for selecting a project
@@ -165,17 +164,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::put('/metric-projects/{projectId}/{metricProjectId}', [MetricProjectController::class, 'update'])->name('metric-projects.update');
     // Route::get('/metric-projects/{metricProject}/add-report', [MetricProjectController::class, 'addReport'])->name('metric-projects.add-report');
     // Route::post('/metric-projects/{metricProject}/store-report', [MetricProjectController::class, 'storeReport'])->name('metric-projects.storeReport');
-
-
-    // Route untuk Product
-    Route::get('/products', [CompanyController::class, 'companyWithProduct'])->name('companies.products');
-    Route::get('/companies/{id}/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/companies/{id}/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/companies/{id}/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get('surveys', [SurveyController::class, 'index'])->name('surveys.index');
     Route::get('surveys/create', [SurveyController::class, 'create'])->name('surveys.create');

@@ -177,22 +177,6 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Product -->
-            <li class="nav-item {{ Nav::isRoute('products') }}">
-                <a class="nav-link" href="{{ route('companies.products') }}">
-                    <i class="fas fa-fw fa-box"></i>
-                    <span>{{ __('Reporting Company Products') }}</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Reporting Metric Projects -->
-            <li class="nav-item {{ Nav::isRoute('metric-projects') }}">
-                <a class="nav-link" href="{{ route('metric-projects.select-project') }}">
-                    <i class="fas fa-fw fa-sitemap"></i>
-                    <span>{{ __('Reporting Metric Projects') }}</span>
-                </a>
-            </li>
-
             <!-- Nav Item - SDG -->
             <li class="nav-item {{ Nav::isRoute('sdgs') }}">
                 <a class="nav-link" href="{{ route('sdgs.index') }}">
