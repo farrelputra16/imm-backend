@@ -36,6 +36,7 @@ class Hubs extends Model
     {
         return $this->belongsToMany(Company::class, 'company_hubs', 'hub_id', 'company_id');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);

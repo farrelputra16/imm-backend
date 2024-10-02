@@ -19,4 +19,9 @@ class Sdg extends Model
     {
         return $this->hasMany(Indicator::class);
     }
+    // Definisi relasi balik ke Project
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_sdg');
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Sdg;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -16,7 +18,10 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('companies.index', compact('companies'));
+        $sdg_projects = SDG::whereHas('projects.company', function ($query) {
+            $query->select('id'); // Anda bisa menambahkan filter di sini jika diperlukan
+        })->distinct()->get();
+        return view('companies.index', compact('companies', 'sdg_projects'));
     }
 
     /**
@@ -124,8 +129,19 @@ class CompanyController extends Controller
     public function view($id)
     {
         $company = Company::findOrFail($id);
+        $company->load('incomes', 'teamMembers', 'projects', 'hubs');
+        $company->total_funding = $company->incomes->sum('jumlah');
 
-        return view('companies.view', compact('company'));
+        $allprojectQuery = Project::with('tags', 'sdgs', 'indicators', 'metrics', 'targetPelanggan', 'dana')
+        ->whereHas('company', function ($query) use ($company) {
+            $query->where('id', $company->id);
+        });
+
+        $allproject = $allprojectQuery->get();
+        $ongoingProjects = $allprojectQuery->where('status', 'Belum selesai')->get();
+        $completedProjects = $allprojectQuery->where('status', 'Selesai')->get();
+
+        return view('companies.view', compact('company', 'ongoingProjects', 'completedProjects'));
     }
 
     /**
@@ -142,19 +158,13 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')
             ->with('success', 'Company deleted successfully.');
     }
-
     /**
-     * Special route for product dimana nanti akan mengambil semua company yang memiliki product dan tidak memiliki product
+     * Menampilkan halaman untuk anggota team company tersebut
      */
-    public function companyWithProduct(){
-        $companies = Company::with('products')->get();
-        // Filter company yang memiliki product dan tidak memiliki product
-        $companiesWithProducts = $companies->filter(function($company){
-            return $company->products->count() > 0;
-        });
-        $companiesWithoutProducts = $companies->filter(function($company){
-            return $company->products->count() == 0;
-        });
-        return view('products.view', compact('companiesWithProducts', 'companiesWithoutProducts'));
+    public function showTeam($id)
+    {
+        $company = Company::findOrFail($id);
+        $team = $company->teamMembers;
+        return view('companies.team', compact('team', 'company'));
     }
 }

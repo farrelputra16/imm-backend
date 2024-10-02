@@ -8,7 +8,7 @@ class CreateCompanyHubTable extends Migration
 {
     public function up()
     {
-        Schema::create('company_hub', function (Blueprint $table) {
+        Schema::create('company_hubs', function (Blueprint $table) {
             $table->unsignedBigInteger('hub_id');
             $table->unsignedBigInteger('company_id');
 

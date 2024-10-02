@@ -88,6 +88,25 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/companies/{id}', [CompanyController::class, 'update'])->name('companies.update');
     Route::delete('/companies/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
     Route::get('/companies/{id}/view', [CompanyController::class, 'view'])->name('companies.view');
+    Route::get('/companies/{id}/team', [CompanyController::class, 'showTeam'])->name('companies.team');
+    Route::get('/companies/{id}/project', [CompanyController::class, 'showProducts'])->name('companies.project');
+
+
+    // Route for selecting a project
+    Route::get('metric-projects/select', [MetricProjectController::class, 'selectProject'])->name('metric-projects.select-project');
+
+     // Routes for metric projects
+    Route::prefix('projects/{project}')->group(function () {
+        Route::get('metric-projects/select', [MetricProjectController::class, 'selectProject'])->name('metric-projects.selectProject');
+        Route::get('metric-projects', [MetricProjectController::class, 'index'])->name('metric-projects.index');
+        Route::get('metric-projects/create', [MetricProjectController::class, 'create'])->name('metric-projects.create');
+        Route::post('metric-projects', [MetricProjectController::class, 'store'])->name('metric-projects.store');
+        Route::get('metric-projects/{metricProject}/edit', [MetricProjectController::class, 'edit'])->name('metric-projects.edit');
+        Route::put('metric-projects/{metricProject}', [MetricProjectController::class, 'update'])->name('metric-projects.update');
+        Route::delete('metric-projects/{metricProject}', [MetricProjectController::class, 'destroy'])->name('metric-projects.destroy');
+        Route::get('metric-projects/{metricProject}/add-report', [MetricProjectController::class, 'addReport'])->name('metric-projects.addReport');
+        Route::post('metric-projects/{metricProject}/store-report', [MetricProjectController::class, 'storeReport'])->name('metric-projects.storeReport');
+    });
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -146,22 +165,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('/metric-projects/{metricProject}/add-report', [MetricProjectController::class, 'addReport'])->name('metric-projects.add-report');
     // Route::post('/metric-projects/{metricProject}/store-report', [MetricProjectController::class, 'storeReport'])->name('metric-projects.storeReport');
 
-
-    // Route for selecting a project
-    Route::get('metric-projects/select', [MetricProjectController::class, 'selectProject'])->name('metric-projects.select-project');
-
-    // Routes for metric projects
-    Route::prefix('projects/{project}')->group(function () {
-        Route::get('metric-projects/select', [MetricProjectController::class, 'selectProject'])->name('metric-projects.selectProject');
-        Route::get('metric-projects', [MetricProjectController::class, 'index'])->name('metric-projects.index');
-        Route::get('metric-projects/create', [MetricProjectController::class, 'create'])->name('metric-projects.create');
-        Route::post('metric-projects', [MetricProjectController::class, 'store'])->name('metric-projects.store');
-        Route::get('metric-projects/{metricProject}/edit', [MetricProjectController::class, 'edit'])->name('metric-projects.edit');
-        Route::put('metric-projects/{metricProject}', [MetricProjectController::class, 'update'])->name('metric-projects.update');
-        Route::delete('metric-projects/{metricProject}', [MetricProjectController::class, 'destroy'])->name('metric-projects.destroy');
-        Route::get('metric-projects/{metricProject}/add-report', [MetricProjectController::class, 'addReport'])->name('metric-projects.addReport');
-        Route::post('metric-projects/{metricProject}/store-report', [MetricProjectController::class, 'storeReport'])->name('metric-projects.storeReport');
-    });
 
     // Route untuk Product
     Route::get('/products', [CompanyController::class, 'companyWithProduct'])->name('companies.products');

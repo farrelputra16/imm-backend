@@ -8,7 +8,7 @@ class CreateHubPeopleTable extends Migration
 {
     public function up()
     {
-        Schema::create('hub_people', function (Blueprint $table) {
+        Schema::create('hubs_people', function (Blueprint $table) {
             $table->unsignedBigInteger('hub_id');
             $table->unsignedBigInteger('people_id');
 

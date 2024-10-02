@@ -8,7 +8,7 @@ class CreateEventHubTable extends Migration
 {
     public function up()
     {
-        Schema::create('event_hub', function (Blueprint $table) {
+        Schema::create('event_hubs', function (Blueprint $table) {
             $table->unsignedBigInteger('hub_id');
             $table->unsignedBigInteger('event_id');
 
