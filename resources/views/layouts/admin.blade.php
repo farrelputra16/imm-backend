@@ -231,6 +231,13 @@
                     <span>{{ __('Reporting Company Outcome') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('investments.index') }}">
+                <a class="nav-link" href="{{ route('investments.index') }}">
+                    <i class="fas fa-fw fa-money-bill-wave"></i>
+                    <span>{{ __('investments') }}</span>
+                </a>
+            </li>
+
 
 
 

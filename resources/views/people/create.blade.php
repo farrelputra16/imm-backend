@@ -60,7 +60,12 @@
                     <input type="text" class="form-control" id="primary_job_title" name="primary_job_title" required>
 
                     <label for="primary_organization">Primary Organization:</label>
-                    <input type="text" class="form-control" id="primary_organization" name="primary_organization" required>
+                    <select class="form-control" id="primary_organization" name="primary_organization">
+                        <option value="">-- Select a Company (optional) --</option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}">{{ $company->nama }}</option>
+                        @endforeach
+                    </select>
 
                     <label for="location">Location:</label>
                     <input type="text" class="form-control" id="location" name="location" required>
