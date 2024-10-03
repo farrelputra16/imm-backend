@@ -29,7 +29,7 @@
     th:nth-child(4), td:nth-child(4) { width: 10%; } /* PIC Name */
     th:nth-child(5), td:nth-child(5) { width: 10%; } /* PIC Position */
     th:nth-child(6), td:nth-child(6) { width: 10%; } /* Phone */
-    th:nth-child(7), td:nth-child(7) { width: 15%; } /* SDG */
+    th:nth-child(7), td:nth-child(7) { width: 20%; } /* SDG */
 
     /* Set background color for table body rows */
     .table tbody tr {

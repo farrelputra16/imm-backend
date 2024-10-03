@@ -89,17 +89,18 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        text-align: center;
         justify-content: space-between;
         padding: 20px;
         background: #ffffff;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        border: 1px solid #eaeaea; /* Border untuk highlight box */
     }
 
     .highlight-box:hover {
         transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Efek bayangan saat hover */
     }
 
     .highlight-content {
@@ -108,8 +109,25 @@
         text-align: left;
     }
 
-    .highlight-content h5 {
-        color: #6a5acd;
+    .highlight-content h6 {
+        color: #6a5acd; /* Warna judul */
+        margin: 0; /* Menghilangkan margin default */
+    }
+
+    .highlight-content h4 {
+        font-weight: bold; /* Menguatkan teks untuk nilai */
+    }
+
+    .highlight-icon {
+        font-size: 36px; /* Ukuran ikon */
+        color: #6a5acd; /* Warna ikon */
+    }
+
+    /* Gaya tambahan untuk keseluruhan card */
+    .card-body {
+        background: #f9f9f9; /* Warna latar belakang untuk card */
+        padding: 20px;
+        border-radius: 10px;
     }
 
     /* DataTables custom styling */
@@ -280,37 +298,47 @@
                             <div class="col-6">
                                 <!-- Highlight for Funds -->
                                 <div class="highlight-box">
-                                    <h6>Funds</h6>
-                                    <h5>{{ $company->incomes->count() }}</h5>
+                                    <div class="highlight-content">
+                                        <h6>Funds</h6>
+                                        <h4>{{ $company->incomes->count() }}</h4>
+                                    </div>
+                                    <i class="fas fa-money-bill-wave highlight-icon"></i> <!-- Ikon untuk Funds -->
                                 </div>
                             </div>
                             <div class="col-6">
                                 <!-- Highlight for Karyawan -->
                                 <div class="highlight-box">
-                                    <h6>Karyawan</h6>
-                                    <h5>{{ $company->jumlah_karyawan }}</h5>
+                                    <div class="highlight-content">
+                                        <h6>Karyawan</h6>
+                                        <h4>{{ $company->jumlah_karyawan }}</h4>
+                                    </div>
+                                    <i class="fas fa-users highlight-icon"></i> <!-- Ikon untuk Karyawan -->
                                 </div>
                             </div>
                             <div class="col-6">
                                 <!-- Highlight for Total Funding -->
                                 <div class="highlight-box">
-                                    <h6>Total Funding</h6>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <h5>{{ formatCurrency($company->total_funding) }}</h5>
+                                    <div class="highlight-content">
+                                        <h6>Total Funding</h6>
+                                        <h4>{{ formatCurrency($company->total_funding) }}</h4>
                                     </div>
+                                    <i class="fas fa-chart-line highlight-icon"></i> <!-- Ikon untuk Total Funding -->
                                 </div>
                             </div>
                             <div class="col-6">
-                                <!-- Highlight for Other Info -->
+                                <!-- Highlight for Investors -->
                                 <div class="highlight-box">
-                                    <h6>Investors</h6>
-                                    <h5>{{ $company->incomes->count() }}</h5> <!-- Ganti dengan data yang relevan -->
+                                    <div class="highlight-content">
+                                        <h6>Investors</h6>
+                                        <h4>{{ $company->incomes->count() }}</h4>
+                                    </div>
+                                    <i class="fas fa-user-plus highlight-icon"></i> <!-- Ikon untuk Investors -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
 
         <div class="container mt-5" style="margin-right: 10px;">
