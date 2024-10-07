@@ -15,7 +15,7 @@ class CreateProjectsTable extends Migration
             $table->text('tujuan');
             $table->date('start_date');
             $table->date('end_date');
-            $table->decimal('jumlah_pendanaan', 10, 2);
+            $table->decimal('jumlah_pendanaan', 15, 2);
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

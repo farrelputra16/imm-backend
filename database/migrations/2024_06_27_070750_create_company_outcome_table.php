@@ -20,6 +20,7 @@ class CreateCompanyOutcomeTable extends Migration
             $table->string('keterangan');
             $table->string('bukti')->nullable();
             $table->unsignedBigInteger('project_id');
+            $table->string('pelaporan_dana'); // Mengganti kolom menjadi pelaporan_dana
             $table->timestamps();
 
             // Set up the foreign key constraint
