@@ -17,10 +17,10 @@ class Investor extends Model
     protected $fillable = [
         'org_name',
         'number_of_contacts',
-        'number_of_investments',
         'location',
         'description',
         'departments',
+        'investment_stage',
         'user_id'
     ];
 
@@ -31,12 +31,20 @@ class Investor extends Model
      */
     protected $casts = [
         'number_of_contacts' => 'integer',
-        'number_of_investments' => 'integer',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+    public function getNumberOfInvestmentsAttribute()
+{
+    return $this->investments()->count();
+}
+
+public function investments()
+{
+    return $this->hasMany(Investment::class);
+}
 
 }

@@ -16,17 +16,33 @@
                     <label for="number_of_contacts">Number of Contacts:</label>
                     <input type="number" class="form-control" id="number_of_contacts" name="number_of_contacts" value="{{ $investor->number_of_contacts }}" required>
 
-                    <label for="number_of_investments">Number of Investments:</label>
-                    <input type="number" class="form-control" id="number_of_investments" name="number_of_investments" value="{{ $investor->number_of_investments }}" required>
-
                     <label for="location">Location:</label>
                     <input type="text" class="form-control" id="location" name="location" value="{{ $investor->location }}" required>
 
                     <label for="description">Description:</label>
                     <textarea class="form-control" id="description" name="description" rows="4" required>{{ $investor->description }}</textarea>
 
+                    <!-- Dropdown untuk Departments -->
                     <label for="departments">Departments:</label>
-                    <input type="text" class="form-control" id="departments" name="departments" value="{{ $investor->departments }}" required>
+                    <select class="form-control" id="departments" name="departments" required>
+                        <option value="Finance" {{ $investor->departments == 'Finance' ? 'selected' : '' }}>Finance</option>
+                        <option value="Marketing" {{ $investor->departments == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                        <option value="Technology" {{ $investor->departments == 'Technology' ? 'selected' : '' }}>Technology</option>
+                        <option value="Operations" {{ $investor->departments == 'Operations' ? 'selected' : '' }}>Operations</option>
+                        <option value="Human Resources" {{ $investor->departments == 'Human Resources' ? 'selected' : '' }}>Human Resources</option>
+                        <option value="Legal" {{ $investor->departments == 'Legal' ? 'selected' : '' }}>Legal</option>
+                    </select>
+
+                    <!-- Dropdown untuk Investment Stage -->
+                    <label for="investment_stage">Investment Stage:</label>
+                    <select class="form-control" id="investment_stage" name="investment_stage">
+                        <option value="Seed" {{ $investor->investment_stage == 'Seed' ? 'selected' : '' }}>Seed</option>
+                        <option value="Series A" {{ $investor->investment_stage == 'Series A' ? 'selected' : '' }}>Series A</option>
+                        <option value="Series B" {{ $investor->investment_stage == 'Series B' ? 'selected' : '' }}>Series B</option>
+                        <option value="Series C" {{ $investor->investment_stage == 'Series C' ? 'selected' : '' }}>Series C</option>
+                        <option value="Growth" {{ $investor->investment_stage == 'Growth' ? 'selected' : '' }}>Growth</option>
+                        <option value="IPO" {{ $investor->investment_stage == 'IPO' ? 'selected' : '' }}>IPO</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Investor</button>
             </form>

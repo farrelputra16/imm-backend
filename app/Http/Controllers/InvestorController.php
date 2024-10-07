@@ -21,43 +21,44 @@ class InvestorController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi input
-        $validated = $request->validate([
-            'org_name' => 'required|string|max:255',
-            'number_of_contacts' => 'required|integer|min:0',
-            'number_of_investments' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'departments' => 'required|string|max:255',
-            'nama_depan' => 'required|string|max:255',
-            'nama_belakang' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+{
+    // Validasi input
+    $validated = $request->validate([
+        'org_name' => 'required|string|max:255',
+        'number_of_contacts' => 'required|integer|min:0',
+        'location' => 'required|string|max:255',
+        'description' => 'required|string',
+        'departments' => 'required|string|max:255',
+        'investment_stage' => 'nullable|string|max:255', // tambahkan ini
+        'nama_depan' => 'required|string|max:255',
+        'nama_belakang' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|string|min:6',
+    ]);
 
-        // Buat user dengan role INVESTOR
-        $user = User::create([
-            'nama_depan' => $request->nama_depan,
-            'nama_belakang' => $request->nama_belakang,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'INVESTOR',
-        ]);
+    // Buat user dengan role INVESTOR
+    $user = User::create([
+        'nama_depan' => $request->nama_depan,
+        'nama_belakang' => $request->nama_belakang,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'INVESTOR',
+    ]);
 
-        // Buat investor terkait
-        Investor::create([
-            'org_name' => $validated['org_name'],
-            'number_of_contacts' => $validated['number_of_contacts'],
-            'number_of_investments' => $validated['number_of_investments'],
-            'location' => $validated['location'],
-            'description' => $validated['description'],
-            'departments' => $validated['departments'],
-            'user_id' => $user->id, // Link ke user yang baru dibuat
-        ]);
+    // Buat investor terkait
+    Investor::create([
+        'org_name' => $validated['org_name'],
+        'number_of_contacts' => $validated['number_of_contacts'],
+        'location' => $validated['location'],
+        'description' => $validated['description'],
+        'departments' => $validated['departments'],
+        'investment_stage' => $validated['investment_stage'], // tambahkan ini
+        'user_id' => $user->id, // Link ke user yang baru dibuat
+    ]);
 
-        return redirect()->route('investors.index')->with('success', 'Investor and User created successfully.');
-    }
+    return redirect()->route('investors.index')->with('success', 'Investor and User created successfully.');
+}
+
 
     public function edit($id)
     {
@@ -66,36 +67,44 @@ class InvestorController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // Validasi input
-        $validated = $request->validate([
-            'org_name' => 'required|string|max:255',
-            'number_of_contacts' => 'required|integer|min:0',
-            'number_of_investments' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'departments' => 'required|string|max:255',
-            'nama_depan' => 'required|string|max:255',
-            'nama_belakang' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-        ]);
+{
+    // Validasi input
+    $validated = $request->validate([
+        'org_name' => 'required|string|max:255',
+        'number_of_contacts' => 'required|integer|min:0',
+        'location' => 'required|string|max:255',
+        'description' => 'required|string',
+        'departments' => 'required|string|max:255',
+        'investment_stage' => 'nullable|string|max:255', // tambahkan ini
+        'nama_depan' => 'required|string|max:255',
+        'nama_belakang' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+    ]);
 
-        // Temukan investor dan user terkait
-        $investor = Investor::findOrFail($id);
-        $user = $investor->user;
+    // Temukan investor dan user terkait
+    $investor = Investor::findOrFail($id);
+    $user = $investor->user;
 
-        // Update investor
-        $investor->update($validated);
+    // Update investor
+    $investor->update([
+        'org_name' => $validated['org_name'],
+        'number_of_contacts' => $validated['number_of_contacts'],
+        'location' => $validated['location'],
+        'description' => $validated['description'],
+        'departments' => $validated['departments'],
+        'investment_stage' => $validated['investment_stage'], // tambahkan ini
+    ]);
 
-        // Update user terkait
-        $user->update([
-            'nama_depan' => $request->nama_depan,
-            'nama_belakang' => $request->nama_belakang,
-            'email' => $request->email,
-        ]);
+    // Update user terkait
+    $user->update([
+        'nama_depan' => $request->nama_depan,
+        'nama_belakang' => $request->nama_belakang,
+        'email' => $request->email,
+    ]);
 
-        return redirect()->route('investors.index')->with('success', 'Investor and User updated successfully.');
-    }
+    return redirect()->route('investors.index')->with('success', 'Investor and User updated successfully.');
+}
+
 
     public function destroy($id)
     {
