@@ -16,8 +16,13 @@ class CreateInvestmentsTable extends Migration
             $table->decimal('amount', 15, 2); // Jumlah investasi
             $table->date('investment_date'); // Tanggal investasi
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending'); // Status investasi
+            $table->string('pengirim');
+            $table->string('bank_asal');
+            $table->string('bank_tujuan');
+            $table->string('funding_type');
+            $table->string('tipe_investasi');
             $table->timestamps();
-
+        
             // Foreign key constraints
             $table->foreign('investor_id')->references('id')->on('investors')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
