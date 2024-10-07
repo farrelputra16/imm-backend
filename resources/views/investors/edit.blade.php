@@ -10,8 +10,13 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="org_name">Organization Name:</label>
-                    <input type="text" class="form-control" id="org_name" name="org_name" value="{{ $investor->org_name }}" required>
+                    <label for="org_name">Organization Name (Optional):</label>
+                    <select name="org_name" id="org_name" class="form-control">
+                        <option value="">Select Company (or leave blank)</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}">{{ $company->nama }}</option>
+                        @endforeach
+                    </select>
 
                     <label for="number_of_contacts">Number of Contacts:</label>
                     <input type="number" class="form-control" id="number_of_contacts" name="number_of_contacts" value="{{ $investor->number_of_contacts }}" required>

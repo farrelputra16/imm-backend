@@ -42,6 +42,11 @@ class Investor extends Model
     return $this->investments()->count();
 }
 
+public function company()
+{
+    return $this->belongsTo(Company::class, 'org_name', 'id');
+}
+
 public function investments()
 {
     return $this->hasMany(Investment::class);

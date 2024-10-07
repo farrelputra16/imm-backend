@@ -6,8 +6,13 @@
 <form action="{{ route('investors.store') }}" method="POST">
     @csrf
     <div class="form-group">
-        <label for="org_name">Organization Name:</label>
-        <input type="text" name="org_name" id="org_name" class="form-control" required>
+        <label for="org_name">Organization Name (Optional):</label>
+        <select name="org_name" id="org_name" class="form-control">
+            <option value="">Select Company (or leave blank)</option>
+            @foreach($companies as $company)
+                <option value="{{ $company->id }}">{{ $company->nama }}</option>
+            @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label for="number_of_contacts">Number of Contacts:</label>
