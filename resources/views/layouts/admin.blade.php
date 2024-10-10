@@ -201,6 +201,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Departements -->
+            <li class="nav-item {{ Nav::isRoute('departments') }}">
+                <a class="nav-link" href="{{ route('departments.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>{{ __('Departments') }}</span>
+                </a>
+            </li>
+
             {{-- income --}}
             <li class="nav-item {{ Nav::isRoute('company-income') }}">
                 <a class="nav-link" href="{{ route('company-income.select-company') }}">
