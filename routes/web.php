@@ -20,6 +20,7 @@ use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\MetricProjectController;
 use App\Http\Controllers\CompanyOutcomeController;
+use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\InvestmentController;
 
 
@@ -143,6 +144,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/metrics/{id}', [MetricController::class, 'update'])->name('metrics.update');
     Route::delete('/metrics/{id}', [MetricController::class, 'destroy'])->name('metrics.destroy');
     Route::get('/metrics/{id}/view', [MetricController::class, 'view'])->name('metrics.view');
+
+    Route::get('/departments', [DepartementController::class, 'index'])->name('departments.index');
+    Route::get('/departments/create', [DepartementController::class, 'create'])->name('departments.create');
+    Route::post('/departments/store', [DepartementController::class, 'store'])->name('departments.store');
+    Route::delete('/departments/{id}', [DepartementController::class, 'destroy'])->name('departments.destroy');
+    Route::get('/departments/{id}/edit', [DepartementController::class, 'edit'])->name('departments.edit');
+    Route::put('/departments/{id}', [DepartementController::class, 'update'])->name('departments.update');
 
 
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
