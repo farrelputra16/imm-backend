@@ -16,25 +16,31 @@
             <!-- Menampilkan Companies Terkait -->
             <h4>Companies:</h4>
             <ul>
-                @foreach($hubs->companies as $company)
+                @forelse($hubs->companies as $company)
                     <li>{{ $company->name }}</li>
-                @endforeach
+                @empty
+                    <li>No companies associated with this hub.</li>
+                @endforelse
             </ul>
 
             <!-- Menampilkan People Terkait -->
             <h4>People:</h4>
             <ul>
-                @foreach($hubs->people as $person)
+                @forelse($hubs->people as $person)
                     <li>{{ $person->name }}</li>
-                @endforeach
+                @empty
+                    <li>No people associated with this hub.</li>
+                @endforelse
             </ul>
 
             <!-- Menampilkan Events Terkait -->
             <h4>Events:</h4>
             <ul>
-                @foreach($hubs->events as $event)
+                @forelse($hubs->events as $event)
                     <li>{{ $event->name }}</li>
-                @endforeach
+                @empty
+                    <li>No events associated with this hub.</li>
+                @endforelse
             </ul>
 
             <a href="{{ route('hubs.index') }}" class="btn btn-secondary">Back to Hubs</a>

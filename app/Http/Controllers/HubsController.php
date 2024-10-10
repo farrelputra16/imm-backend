@@ -94,11 +94,13 @@ class HubsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Hubs $hubs)
-    {
-        // Memuat relasi terkait
-        $hubs->load(['companies', 'people', 'events']);
-        return view('hubs.show', compact('hubs'));
-    }
+{
+    // Memuat relasi terkait (companies, people, events)
+    $hubs->load(['companies', 'people', 'events']);
+
+    // Menampilkan view dengan data yang diteruskan
+    return view('hubs.show', compact('hubs'));
+}
 
     /**
      * Menampilkan form untuk mengedit hubs.
