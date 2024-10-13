@@ -18,7 +18,7 @@ class CreateCompanyDepartmentsTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('department_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

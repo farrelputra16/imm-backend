@@ -25,6 +25,7 @@ class CreateCompaniesTable extends Migration
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->integer('jumlah_karyawan');
+            $table->string('funding_stage');
             $table->timestamps();
         });
     }

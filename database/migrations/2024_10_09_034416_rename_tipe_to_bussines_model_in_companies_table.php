@@ -14,7 +14,7 @@ class RenameTipeToBussinesModelInCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->renameColumn('tipe', 'bussines_model');
+            $table->renameColumn('tipe', 'business_model');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameTipeToBussinesModelInCompaniesTable extends Migration
     public function down()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->renameColumn('bussines_model', 'tipe');
+            $table->renameColumn('business_model', 'tipe');
         });
     }
 }

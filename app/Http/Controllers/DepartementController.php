@@ -2,45 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class DepartementController extends Controller
 {
-    public function index () {
-        $departments = Departement::all();
-        return view('departements.index', compact('departments'));
+    public function index()
+    {
+        $departments = Department::all();
+        return view('departments.index', compact('departments'));
     }
 
-    public function create (){
-        return view('departements.create');
+    public function create()
+    {
+        return view('departments.create');
     }
 
-    public function store (Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
-            'name' => 'required|unique:departements'
+            'name' => 'required|unique:departments'
         ]);
 
-        Departement::create($request->all());
-        return redirect()->route('departements.index')->with('success', 'Departement created successfully');
+        Department::create($request->all());
+        return redirect()->route('departments.index')->with('success', 'Department created successfully');
     }
 
-    public function edit (Departement $departments){
-        return view('departements.edit', compact('departement'));
-    }   
+    public function edit(Department $departments)
+    {
+        return view('departments.edit', compact('departement'));
+    }
 
-    public function update (Request $request, Departement $departments){
+    public function update(Request $request, Department $departments)
+    {
         $request->validate([
-            'name' => 'required|unique:departements'
+            'name' => 'required|unique:departments'
         ]);
 
         $departments->update($request->all());
-        return redirect()->route('departements.index')->with('success', 'Departement updated successfully');
+        return redirect()->route('departments.index')->with('success', 'Department updated successfully');
     }
 
-    public function destroy (Departement $departments){
+    public function destroy(Department $departments)
+    {
         $departments->delete();
-        return redirect()->route('departements.index')->with('success', 'Departement deleted successfully');
+        return redirect()->route('departments.index')->with('success', 'Department deleted successfully');
     }
 }
