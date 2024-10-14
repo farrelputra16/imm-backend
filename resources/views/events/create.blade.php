@@ -18,6 +18,33 @@
                 <input type="text" name="topic" id="topic" class="form-control">
             </div>
             <div class="form-group">
+                <label for="allowed_participants">Allowed Participants</label>
+                <input type="text" name="allowed_participants" id="allowed_participants" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="expected_participants">Expected Participants</label>
+                <input type="number" name="expected_participants" id="expected_participants" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="fee_type">Fee Type</label>
+                <select name="fee_type" id="fee_type" class="form-control" required>
+                    <option value="Free">Free</option>
+                    <option value="Paid">Paid</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="organizer_name">Organizer Name</label>
+                <input type="text" name="organizer_name" id="organizer_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="nomor_tlpn">Phone Number</label>
+                <input type="text" name="nomor_tlpn" id="nomor_tlpn" class="form-control" required>
+            </div>
+            <div class="form-group">
                 <label for="cover_img">Cover Image:</label>
                 <input type="file" name="cover_img" class="form-control" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp">
             </div>
@@ -34,12 +61,9 @@
                 <input type="datetime-local" name="start" id="start" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="end">End</label>
-                <input type="datetime-local" name="end" id="end" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="deadline">Deadline</label>
-                <input type="datetime-local" name="deadline" id="deadline" class="form-control" required>
+                <label for="event_duration">Event Duration</label>
+                <input type="text" name="event_duration" id="event_duration" class="form-control" required placeholder="e.g., 10.00 - 13.00">
+                <small class="form-text text-muted">Please enter the duration in the format: Start - End (e.g., 10.00 - 13.00)</small>
             </div>
             <div class="form-group">
                 <label for="users">Users</label>

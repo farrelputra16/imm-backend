@@ -27,9 +27,6 @@ class EditPeopleTable extends Migration
             // Mengubah regions menjadi nullable
             $table->string('regions')->nullable()->change();
 
-            // Mengubah gender menjadi enum('Laki-laki', 'Perempuan'
-            $table->enum('gender', ['Laki-laki', 'Perempuan'])->change();
-
             // Mengubah phone_number menjadi nullable
             $table->string('phone_number')->nullable()->change();
 

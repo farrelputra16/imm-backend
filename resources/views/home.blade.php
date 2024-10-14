@@ -91,7 +91,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </ div>
 
     <div class="row">
         <!-- Recent Posts -->

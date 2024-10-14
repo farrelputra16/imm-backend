@@ -12,11 +12,16 @@ class Event extends Model
     protected $fillable = [
         'title',
         'description',
+        'allowed_participants',
+        'expected_participants',
+        'fee_type',
+        'organizer_name',
+        'email',
+        'nomor_tlpn',
         'topic',
         'location',
         'start',
-        'end',
-        'deadline',
+        'event_duration',
         'cover_img',
         'hero_img',
     ];
@@ -25,9 +30,9 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
     public function hubs()
     {
         return $this->belongsToMany(Hubs::class, 'event_hubs', 'event_id', 'hub_id');
     }
-
 }

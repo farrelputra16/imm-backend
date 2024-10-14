@@ -23,13 +23,14 @@
     }
 
     /* Custom width for columns */
-    th:nth-child(1), td:nth-child(1) { width: 20%; } /* Profile column */
-    th:nth-child(2), td:nth-child(2) { width: 15%; } /* Founded Date */
+    th:nth-child(1), td:nth-child(1) { width: 10%; } /* Profile column */
+    th:nth-child(2), td:nth-child(2) { width: 5%; } /* Founded Date */
     th:nth-child(3), td:nth-child(3) { width: 10%; } /* Type */
     th:nth-child(4), td:nth-child(4) { width: 10%; } /* PIC Name */
     th:nth-child(5), td:nth-child(5) { width: 10%; } /* PIC Position */
-    th:nth-child(6), td:nth-child(6) { width: 10%; } /* Phone */
-    th:nth-child(7), td:nth-child(7) { width: 20%; } /* SDG */
+    th:nth-child(6), td:nth-child(6) { width: 5%; } /* Phone */
+    th:nth-child(7), td:nth-child(7) { width: 15%; } /* SDG */
+    th:nth-child(8), td:nth-child(8) { width: 15%; } /* Actions */
 
     /* Set background color for table body rows */
     .table tbody tr {
@@ -62,12 +63,12 @@
     }
 
     .sdg-tag {
-        display: inline-flex; 
-        background-color: #594eb8; 
-        color: white; 
-        padding: 5px 10px; 
-        border-radius: 10px; 
-        margin: 5px; 
+        display: inline-flex;
+        background-color: #594eb8;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 5px;
         font-size: 14px;
     }
 </style>
@@ -81,45 +82,56 @@
         <p>No company found.</p>
     @else
         <div class="table-responsive">
-            <table id="companies-table" class="table table-hover table-striped" style="margin-bottom: 0;">
+            <table id="companies-table" class="table table-hover table-striped" style="margin-bottom: 0px;">
                 <thead>
                     <tr>
-                        <th>Profile</th>
-                        <th>Tanggal Didirikan</th>
-                        <th>Tipe</th>
-                        <th>Nama PIC</th>
-                        <th>Posisi PIC</th>
-                        <th>Telepon</th>
-                        <th>SDG</th>
-                        <th>Actions</th>
+                        <th scope="col" style="border-top-left-radius: 20px; vertical-align: middle;">Profile</th>
+                        <th scope="col" style="vertical-align: middle;">Nama</th>
+                        <th scope="col" style="vertical-align: middle;">Tanggal Didirikan</th>
+                        <th scope="col" style="vertical-align: middle;">Business Model</th>
+                        <th scope="col" style="vertical-align: middle;">Nama PIC</th>
+                        <th scope="col" style="vertical-align: middle;">Posisi PIC</th>
+                        <th scope="col" style="vertical-align: middle;">Telepon</th>
+                        <th scope="col" style="vertical-align: middle;">SDG</th>
+                        <th scope="col" style="border-top-right-radius: 20px; vertical-align: middle;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($companies as $company)
                         <tr>
-                            <td>
-                                <div>
-                                    <img src="{{ !empty($company->image) ? asset($company->image) : asset('images/logo-maxy.png') }}" alt="" width="50" height="50">
-                                    <span>{{ $company->nama }}</span>
+                            <td style="vertical-align: middle;">
+                                <div style="display: flex; align-items: center;">
+                                    <div style="margin-right: 5px;">
+                                        <img src="{{ !empty($company->profile) ? asset($company->profile) : asset('images/logo-maxy.png') }}" alt="" width="50" height="50" style="border-radius: 8px; object-fit:cover;">
+                                    </div>
+                                    <div style="flex-grow: 1; margin-left: 0px; margin-right: 0px; width: 100px; word-wrap: break-word; word-break: break-word; white-space: normal;"
+                                        @if (strlen($company->nama) > 20)
+                                            title="{{ $company->nama }}"
+                                            style="cursor: pointer;"
+                                        @endif
+                                    >
+                                        <span>{{ $company->nama }}</span>
+                                    </div>
                                 </div>
                             </td>
-                            <td>{{ \Carbon\Carbon::parse($company->founded_date)->format('j M, Y') }}</td>
-                            <td>{{ $company->tipe }}</td>
-                            <td>{{ $company->nama_pic }}</td>
-                            <td>{{ $company->posisi_pic }}</td>
-                            <td>{{ $company->telepon }}</td>
-                            <td>
+                            <td style="vertical-align: middle;">{{ $company->nama }}</td>
+                            <td style="vertical-align: middle;">{{ $company->founded_date ? \Carbon\Carbon::parse($company->founded_date)->format('j M, Y') : 'N/A' }}</td>
+                            <td style="vertical-align: middle;">{{ $company->business_model }}</td>
+                            <td style="vertical-align: middle;">{{ $company->nama_pic }}</td>
+                            <td style="vertical-align: middle;">{{ $company->posisi_pic }}</td>
+                            <td style="vertical-align: middle;">{{ $company->telepon }}</td>
+                            <td style="vertical-align: middle;">
                                 @foreach($sdg_projects as $sdg)
                                     <div class="sdg-tag">
                                         <h5 style="margin: 0;">SDG {{ $sdg->id }}</h5>
                                     </div>
                                 @endforeach
                             </td>
-                            <td>
-                                <a href="{{ route('companies.view', $company->id) }}" class="btn btn-sm btn-primary btn-action">
+                            <td style="vertical-align: middle; display: flex; align-items: center; justify-content: center;">
+                                <a href="{{ route('companies.view', $company->id) }}" class="btn btn-sm btn-primary btn-action" style="margin-right: 5px;">
                                     <i class="fas fa-info-circle"></i>
                                 </a>
-                                <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-sm btn-primary btn-action">
+                                <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-sm btn-primary btn-action" style="margin-right: 5px;">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form action="{{ route('companies.destroy', $company->id) }}" method="POST" style="display: inline;">

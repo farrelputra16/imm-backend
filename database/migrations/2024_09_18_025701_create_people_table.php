@@ -18,7 +18,7 @@ class CreatePeopleTable extends Migration
             $table->string('primary_organization'); // Organisasi atau perusahaan utama
             $table->string('location'); // Lokasi
             $table->string('regions'); // Wilayah atau regional
-            $table->enum('gender', ['male', 'female', 'other']); // Gender atau jenis kelamin
+            $table->enum('gender', ['Laki-laki', 'Perempuan']); // Gender atau jenis kelamin
             $table->string('linkedin_link')->nullable(); // Tautan LinkedIn
             $table->text('description')->nullable(); // Deskripsi orang tersebut
             $table->string('phone_number'); // Nomor telepon
