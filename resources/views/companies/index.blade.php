@@ -85,7 +85,7 @@
             <table id="companies-table" class="table table-hover table-striped" style="margin-bottom: 0px;">
                 <thead>
                     <tr>
-                        <th scope="col" style="border-top-left-radius: 20px; vertical-align: middle;">Profile</th>
+                        <th scope="col" style="vertical-align: middle;">Profile</th>
                         <th scope="col" style="vertical-align: middle;">Nama</th>
                         <th scope="col" style="vertical-align: middle;">Tanggal Didirikan</th>
                         <th scope="col" style="vertical-align: middle;">Business Model</th>
@@ -93,7 +93,7 @@
                         <th scope="col" style="vertical-align: middle;">Posisi PIC</th>
                         <th scope="col" style="vertical-align: middle;">Telepon</th>
                         <th scope="col" style="vertical-align: middle;">SDG</th>
-                        <th scope="col" style="border-top-right-radius: 20px; vertical-align: middle;">Actions</th>
+                        <th scope="col" style="vertical-align: middle;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
