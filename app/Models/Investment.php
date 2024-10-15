@@ -12,25 +12,34 @@ class Investment extends Model
     protected $fillable = [
         'investor_id',
         'company_id',
-        'project_id',
         'amount',
         'investment_date',
         'status'
     ];
 
+    /**
+     * Relasi many-to-one dengan Investor
+     */
     public function investor()
     {
         return $this->belongsTo(Investor::class);
     }
 
+    /**
+     * Relasi many-to-one dengan Company
+     */
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function project()
+    /**
+     * Relasi many-to-many dengan FundingRound melalui pivot table funding_round_investment
+     */
+    public function fundingRounds()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsToMany(FundingRound::class, 'funding_round_investment')
+                    ->withPivot('amount') // Menyimpan jumlah investasi yang sesuai
+                    ->withTimestamps();
     }
 }
-

@@ -41,10 +41,14 @@ class Company extends Model
     public function hubs()
     {
         return $this->belongsToMany(Hubs::class, 'company_hub', 'company_id', 'hub_id');
-    }    
+    }
     // Hubungan dengan Project
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+    public function fundingRounds()
+    {
+        return $this->hasMany(FundingRound::class);
     }
 }
