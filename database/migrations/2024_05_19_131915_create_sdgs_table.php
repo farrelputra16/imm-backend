@@ -11,6 +11,7 @@ class CreateSdgsTable extends Migration
         Schema::create('sdgs', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->nullable();
+            $table->string('short_name', 255)->nullable();
             $table->integer('order')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
