@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddVideoPitchRoadmapToProductTable extends Migration
+class AddVideoPitchRoadmapToProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class AddVideoPitchRoadmapToProductTable extends Migration
      */
     public function up()
     {
-        Schema::table('product', function (Blueprint $table) {
+        Schema::table('projects', function (Blueprint $table) {
             $table->string('video_pitch')->after('jumlah_pendanaan')->nullable();
             $table->string('pitch_deck')->after('video_pitch')->nullable();
             $table->string('roadmap')->after('pitch_deck')->nullable();
+
+            // Menghapus tanggal penyelesaian
+            $table->dropColumn('tanggal_penyelesaian'); // Menghapus kolom tanggal_penyelesaian dari tabel projects
         });
     }
 
@@ -27,8 +30,9 @@ class AddVideoPitchRoadmapToProductTable extends Migration
      */
     public function down()
     {
-        Schema::table('product', function (Blueprint $table) {
-            //
+        Schema::table('projects', function (Blueprint $table) {
+            $table->dropColumn(['video_pitch', 'pitch_deck', 'roadmap']);
+            $table->string('tanggal_penyelesaian')->after('roadmap')->nullable();
         });
     }
 }
