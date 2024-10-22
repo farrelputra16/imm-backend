@@ -229,6 +229,12 @@
                     <span>{{ __('investments') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('fundingrounds.index') }}">
+                <a class="nav-link" href="{{ route('fundingrounds.index') }}">
+                    <i class="fas fa-fw fa-money-bill-wave"></i>
+                    <span>{{ __('Funding Rounds') }}</span>
+                </a>
+            </li>
 
 
 

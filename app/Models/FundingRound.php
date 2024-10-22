@@ -15,18 +15,10 @@ class FundingRound extends Model
         'target',
         'announced_date',
         'money_raised',
-        'lead_investor'
+        'lead_investor_id',
+        'funding_stage',      // Tambahkan funding_stage
+        'description'
     ];
-
-    /**
-     * Relasi many-to-many dengan Investment melalui pivot table funding_round_investment
-     */
-    public function investments()
-    {
-        return $this->belongsToMany(Investment::class, 'funding_round_investment')
-                    ->withPivot('amount') // Menyimpan jumlah investasi untuk tiap funding round
-                    ->withTimestamps();
-    }
 
     /**
      * Relasi many-to-one dengan Company
@@ -34,5 +26,18 @@ class FundingRound extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Relasi many-to-many dengan Investment melalui pivot table funding_round_investment
+     */
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    public function leadInvestor()
+    {
+        return $this->belongsTo(Investor::class, 'lead_investor_id');
     }
 }

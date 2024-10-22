@@ -22,6 +22,7 @@ use App\Http\Controllers\MetricProjectController;
 use App\Http\Controllers\CompanyOutcomeController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\FundingRoundController;
 
 
 
@@ -256,5 +257,15 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Route untuk mengedit investasi
     Route::get('investments/{investment}/edit', [InvestmentController::class, 'edit'])->name('investments.edit');
+
+    Route::get('/fundingrounds', [FundingRoundController::class, 'index'])->name('fundingrounds.index');
+    Route::get('/fundingrounds/create', [FundingRoundController::class, 'create'])->name('fundingrounds.create');
+    Route::post('/fundingrounds/store', [FundingRoundController::class, 'store'])->name('fundingrounds.store');
+    Route::get('/fundingrounds/{fundinground}/edit', [FundingRoundController::class, 'edit'])->name('fundingrounds.edit');
+    Route::put('/fundingrounds/{fundinground}', [FundingRoundController::class, 'update'])->name('fundingrounds.update');
+    Route::delete('/fundingrounds/{fundinground}', [FundingRoundController::class, 'destroy'])->name('fundingrounds.destroy');
+    Route::get('/fundingrounds/{fundinground}/show', [FundingRoundController::class, 'show'])->name('fundingrounds.show');
+
+
 
 });
