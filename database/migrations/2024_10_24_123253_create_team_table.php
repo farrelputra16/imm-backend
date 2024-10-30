@@ -17,7 +17,7 @@ class CreateTeamTable extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->foreignId('people_id')->constrained('people')->onDelete('cascade');
-            $table->string('position')->nullable();
+            $table->foreignId('position')->constrained('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

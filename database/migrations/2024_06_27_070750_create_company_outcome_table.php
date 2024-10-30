@@ -17,7 +17,6 @@ class CreateCompanyOutcomeTable extends Migration
             $table->id();
             $table->date('date');
             $table->decimal('jumlah_biaya', 15, 2);
-            $table->string('keterangan');
             $table->string('bukti')->nullable();
             $table->unsignedBigInteger('project_id');
             $table->string('pelaporan_dana'); // Mengganti kolom menjadi pelaporan_dana
