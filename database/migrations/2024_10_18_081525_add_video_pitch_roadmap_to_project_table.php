@@ -17,8 +17,8 @@ class AddVideoPitchRoadmapToProjectTable extends Migration
             $table->string('video_pitch')->after('jumlah_pendanaan')->nullable();
             $table->string('pitch_deck')->after('video_pitch')->nullable();
             $table->string('roadmap')->after('pitch_deck')->nullable();
-            $table->decimal('latitude', 10, 8)->nullable();
-            $table->decimal('longitude', 11, 8)->nullable();
+            $table->decimal('latitude', 22, 16)->after('roadmap')->nullable();
+            $table->decimal('longitude', 22, 16)->after('latitude')->nullable();
             // Menghapus tanggal penyelesaian
             $table->dropColumn('tanggal_penyelesaian'); // Menghapus kolom tanggal_penyelesaian dari tabel projects
         });

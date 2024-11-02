@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddInvestmentStageToInvestorsTable extends Migration
+class RemoveDepartmentsFromTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddInvestmentStageToInvestorsTable extends Migration
     public function up()
     {
         Schema::table('investors', function (Blueprint $table) {
-            $table->string('investment_stage')->nullable()->after('departments');
-            $table->string('investor_type')->nullable()->after('investment_stage');
+            $table->dropColumn('departments');
         });
     }
 
@@ -27,7 +26,7 @@ class AddInvestmentStageToInvestorsTable extends Migration
     public function down()
     {
         Schema::table('investors', function (Blueprint $table) {
-            $table->dropColumn('investment_stage');
+            $table->string('departments')->nullable();
         });
     }
 }

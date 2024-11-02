@@ -20,7 +20,7 @@ class CreateInvestorsTable extends Migration
             $table->integer('number_of_investments');
             $table->string('location');
             $table->text('description');
-            $table->string('departments');
+            $table->string('departments')->nullable();
             $table->timestamps();
         });
 

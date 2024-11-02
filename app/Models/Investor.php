@@ -19,8 +19,8 @@ class Investor extends Model
         'number_of_contacts',
         'location',
         'description',
-        'departments',
         'investment_stage',
+        'investor_type',
         'user_id'
     ];
 
@@ -38,18 +38,18 @@ class Investor extends Model
         return $this->belongsTo(User::class);
     }
     public function getNumberOfInvestmentsAttribute()
-{
-    return $this->investments()->count();
-}
+    {
+        return $this->investments()->count();
+    }
 
-public function company()
-{
-    return $this->belongsTo(Company::class, 'org_name', 'id');
-}
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'org_name', 'id');
+    }
 
-public function investments()
-{
-    return $this->hasMany(Investment::class);
-}
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
 
 }
