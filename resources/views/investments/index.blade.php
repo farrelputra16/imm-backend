@@ -18,7 +18,6 @@
                         <tr>
                             <th>Investor</th>
                             <th>Perusahaan</th>
-                            <th>Proyek</th>
                             <th>Jumlah Investasi</th>
                             <th>Tanggal Investasi</th>
                             <th>Status</th>
@@ -30,7 +29,6 @@
                             <tr>
                                 <td>{{ $investment->investor->org_name }}</td>
                                 <td>{{ $investment->company->nama }}</td>
-                                <td>{{ $investment->project->nama }}</td>
                                 <td>{{ number_format($investment->amount, 2) }}</td>
                                 <td>{{ $investment->investment_date }}</td>
                                 <td>

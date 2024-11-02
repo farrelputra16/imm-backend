@@ -10,7 +10,7 @@ class InvestmentController extends Controller
     public function index()
     {
         // Mengambil semua data investasi dengan relasi investor, company, dan project
-        $investments = Investment::with(['investor', 'company', 'project'])->get();
+        $investments = Investment::with(['investor', 'company'])->get();
 
         return view('investments.index', compact('investments'));
     }
