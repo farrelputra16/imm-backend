@@ -51,4 +51,8 @@ class Company extends Model
     {
         return $this->hasMany(FundingRound::class);
     }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

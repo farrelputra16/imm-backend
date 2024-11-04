@@ -50,4 +50,8 @@ class People extends Model
         }
         $this->attributes['gender'] = $value;
     }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

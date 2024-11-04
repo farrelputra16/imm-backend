@@ -51,5 +51,9 @@ class Investor extends Model
     {
         return $this->hasMany(Investment::class);
     }
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 
 }

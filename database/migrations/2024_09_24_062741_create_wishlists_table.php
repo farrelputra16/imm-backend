@@ -16,11 +16,15 @@ class CreateWishlistsTable extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('company_id'); // Ensure this column exists
+            $table->unsignedBigInteger('company_id')->nullable(); // Ensure this column exists
+            $table->unsignedBigInteger('investor_id')->nullable(); // Ensure this column exists
+            $table->unsignedBigInteger('people_id')->nullable(); // Ensure this column exists
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('investor_id')->references('id')->on('investors')->onDelete('cascade');
+            $table->foreign('people_id')->references('id')->on('people')->onDelete('cascade');
         });
     }
 
