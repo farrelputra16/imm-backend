@@ -15,7 +15,10 @@ class AddSkillsToPeopleTable extends Migration
     {
         Schema::table('people', function (Blueprint $table) {
             $table->string('skills')->nullable()->after('gmail');
+            // Menambahkan FULLTEXT INDEX pada kolom 'skills'
+            $table->fullText('skills');
         });
+
     }
 
     /**
@@ -26,8 +29,11 @@ class AddSkillsToPeopleTable extends Migration
     public function down()
     {
         Schema::table('people', function (Blueprint $table) {
+            // Menghapus FULLTEXT INDEX
+            $table->dropFullText('skills');
+
+            // Menghapus kolom 'skills'
             $table->dropColumn('skills');
         });
     }
 }
-
