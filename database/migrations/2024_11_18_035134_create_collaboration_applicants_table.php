@@ -15,7 +15,7 @@ class CreateCollaborationApplicantsTable extends Migration
             $table->string('name'); // Nama applicant
             $table->string('position'); // Posisi yang dilamar
             $table->string('resume'); // Path file resume
-            $table->enum('status', ['Accept', 'Reject'])->nullable(); // Status kolaborasi
+            $table->enum('status', ['Accept', 'Reject', 'Pending'])->nullable(); // Status kolaborasi
             $table->timestamps();
         });
     }
