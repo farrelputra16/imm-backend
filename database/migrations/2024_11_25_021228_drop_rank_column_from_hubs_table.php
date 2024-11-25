@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveRankColumnFromHubsTable extends Migration
+class DropRankColumnFromHubsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class RemoveRankColumnFromHubsTable extends Migration
     public function down()
     {
         Schema::table('hubs', function (Blueprint $table) {
-            $table->integer('rank')->nullable();
+            $table->integer('rank')->nullable(); // Atur tipe data dan nullable sesuai kebutuhan
         });
     }
 }
